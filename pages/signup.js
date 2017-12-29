@@ -2,14 +2,20 @@ import React from 'react';
 
 import { validateFormData } from 'utils/validations';
 
-import Login from 'components/views/Auth/Login';
+import SignUp from 'components/views/Auth/SignUp';
 // console.log(validateFormData)
-class LoginPage extends React.Component {
+class SignUpPage extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
       formDetails: {
+        name: {
+            status: true,
+            errorText: '',
+            value: '',
+            rules: ['isRequired'],
+        },
         email: {
           status: true,
           errorText: '',
@@ -50,7 +56,7 @@ class LoginPage extends React.Component {
     const { formDetails } = this.state;
 		const error = false;
 		return (
-        <Login 
+        <SignUp 
           formDetails={formDetails}
           error={error}
 
@@ -62,4 +68,4 @@ class LoginPage extends React.Component {
 	}
 }
 
-export default LoginPage;
+export default SignUpPage;

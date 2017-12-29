@@ -1,6 +1,6 @@
 /**
 *
-* Login
+* SignUp
 *
 */
 
@@ -11,7 +11,7 @@ import { Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react';
 import TextField from 'components/widgets/Form/TextField';
 import SubmitButton from 'components/widgets/Form/SubmitButton';
 
-class Login extends React.Component { // eslint-disable-line react/prefer-stateless-function
+class SignUp extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   handleChange = (name, value) => {
     const tempFormDetails = Object.assign({}, this.props.formDetails);
@@ -40,7 +40,7 @@ class Login extends React.Component { // eslint-disable-line react/prefer-statel
           <Grid.Column style={{ maxWidth: 450, marginTop: "13vh" }}>
             <Header as='h2' color='teal' textAlign='center'>
               <Image src='static/images/logo.png' />
-              {' '}Log in to your account
+              {' '}Sign up for your account
             </Header>
             <Form size='large'>
               <Segment stacked>
@@ -49,6 +49,15 @@ class Login extends React.Component { // eslint-disable-line react/prefer-statel
                     <p>{error}</p>
                   </Message>
                 }
+                
+                <TextField
+                  label="Full Name"
+                  name="name"
+                  value={formDetails.name.value||""}
+                  handleChange={this.handleChange}
+                  errorText={!formDetails.name.status ? formDetails.name.errorText : ''}
+                />
+
                 <TextField
                   icon="mail"
                   label="Email"
@@ -57,6 +66,7 @@ class Login extends React.Component { // eslint-disable-line react/prefer-statel
                   handleChange={this.handleChange}
                   errorText={!formDetails.email.status ? formDetails.email.errorText : ''}
                 />
+
                 <TextField
                   icon='lock'
                   name="password"
@@ -69,13 +79,13 @@ class Login extends React.Component { // eslint-disable-line react/prefer-statel
 
                 <SubmitButton
                   color="teal"
-                  label="Login"
+                  label="Sign Up"
                   onSubmit={this.handleSubmit}
                 />
               </Segment>
             </Form>
             <Message>
-              New to us? <Link href="/signup">Sign Up</Link>
+              Already have the account? <Link href="/">Login</Link>
             </Message>
           </Grid.Column>
         </Grid>
@@ -84,8 +94,8 @@ class Login extends React.Component { // eslint-disable-line react/prefer-statel
   }
 }
 
-Login.propTypes = {
+SignUp.propTypes = {
 
 };
 
-export default Login;
+export default SignUp;
