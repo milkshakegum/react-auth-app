@@ -1,0 +1,54 @@
+{
+  "name": "react-auth-app",
+  "version": "1.0.0",
+  "description": "React Auth App using Cosmicjs, react.js, node.js & next.js",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon server.js --exec babel-node --presets es2015 stage-2",
+    "build": "next build",
+    "start": "node server.js",
+    "start-production": "npm run build && cross-env NODE_ENV=production npm run start",
+    "lint": "eslint --ext .js,.js .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/musaghauri/react-auth-app.git"
+  },
+  "author": "Muhammad Musa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/musaghauri/react-auth-app/issues"
+  },
+  "homepage": "https://github.com/musaghauri/react-auth-app#readme",
+  "dependencies": {
+    "babel-plugin-module-resolver": "^3.0.0",
+    "babel-plugin-transform-define": "^1.3.0",
+    "body-parser": "^1.18.2",
+    "compression": "^1.7.1",
+    "cosmicjs": "^2.4.22",
+    "express": "^4.16.2",
+    "lodash": "^4.17.4",
+    "next": "^4.2.1",
+    "nodemailer": "^4.4.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "semantic-ui-react": "^0.77.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "eslint": "^4.14.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-loader": "^1.9.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.5.1",
+    "nodemon": "^1.14.3",
+    "react-addons-test-utils": "^15.6.2"
+  }
+}
