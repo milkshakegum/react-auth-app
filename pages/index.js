@@ -53,6 +53,10 @@ class Home extends React.Component {
         <Login 
           formDetails={formDetails}
           error={error}
+
+          validateForm={this.validateForm}
+          updateFormDetails={this.updateFormDetails}
+          submitForm={this.submitForm}
         />
 		);
 	}
