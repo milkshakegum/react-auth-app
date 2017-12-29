@@ -14,8 +14,7 @@ app.prepare()
 .then(() => {
   const server = express();
   // serving static files
-  server.use(compression())
-  server.use('/static', express.static('public'));
+  server.use(compression());
   server.use(bodyParser.urlencoded({ extended: false }));
   server.use(bodyParser.json());
   server.post('/sendEmail', (req, res) => {
