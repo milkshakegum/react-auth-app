@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { validateFormData } from 'utils/validations';
-import cosmic from 'utils/cosmic';
-import md5 from 'utils/encryption';
+import request from 'utils/request';
 import config from 'config';
 import {
+  createRequestOptions,
   submitFormData
 } from 'utils/helperFuncs';
 
@@ -42,30 +42,19 @@ class LoginPage extends React.Component {
 
   submitForm = (formDetails) => { // eslint-disable-line no-unused-vars
     const userData = submitFormData(formDetails);
-		this.props.onLoginUser(userData);
+		this.onLoginUser(userData);
   }
 
-	componentWillReceiveProps(newProps) {
+	onLoginUser(data) {
 		
-    const params = {
-      write_key: config.bucket.write_key,
-      type_slug: config.users_type,
-      title: data.name,
-      metafields: [{
-        value: data.email,
-        key: "email",
-        title: "Email",
-      }, {
-        value: md5.hash(data.password),
-        key: "password",
-        title: "Password",
-      }],
-    };
-    cosmic("ADD", params)
-      .then((res) => {
-        console.log("RES:", res)
+    const requestBody = { data };
+    const requestURL = 'api/signin';
+    const options = createRequestOptions('POST', requestBody);
+    request(requestURL, options)
+      .then(data => {
+        console.log("RES", data)
       })
-      .catch(e => console.log(e));
+      .catch(e => console.log("ERR", e))
 	}
 
   

@@ -46,4 +46,28 @@ router.route('/signup')
         .then(e => res.send(e));
 
   });
+
+  router.route('/signin')
+    .post(function(req, res) {
+    const data = req.body.data;
+
+    const searchParams = {
+        type_slug: config.users_type,
+        metafield_key: 'email',
+        metafield_value: data.email,
+        limit: 5,
+        skip: 0,
+        sort: '-created_at', // optional, if sort is needed. (use one option from 'created_at,-created_at,modified_at,-modified_at,random')
+    };
+    cosmic("SEARCH_TYPE", searchParams)
+        .then(users => {
+            console.log("D", users.objects.all[0].metadata.password)
+            if(users.total > 0) {
+                if(md5.validate(users.objects.all[0].metadata.password, data.password)) return res.json({ success: true })
+                else return res.json({ error: "Credentials are wrong!" });
+            } else return res.json({ error: "Credentials are wrong!" });
+        })
+        .then(e => res.send(e));
+
+  });
 module.exports = router;
