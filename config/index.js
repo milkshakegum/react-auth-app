@@ -9,11 +9,12 @@ const environment = {
 const prod = process.env.NODE_ENV === 'production';
 const config = {
     bucket: {
-        slug: 'agency-app',
-        read_key: 'kxk8SRy6Xa0hOlPLYnzThzQZNlXuD3JQ8ZaUjhMTkGsMpgyjKt',
-        write_key: 'K1Fif11wSO3pWaVKWqoEzVQMAyCLEqXbPhyETAD7BKMiHgfzIQ'
+        slug: process.env.COSMIC_BUCKET || 'react-auth-app',
+        read_key: process.env.COSMIC_READ_KEY || "XTVIUr1swolMSy9jyoHeuc9RKavSv2w444x8Jsfe24MwaxSNoy",
+        write_key: process.env.COSMIC_WRITE_KEY || "za42hK9lszYzVtgwvvVcw1VTIXNECOFFXM9vXHKlgqvI04MOPM",
     },
-    private_settings_type: 'private-settings',
+    users_type: 'users',
+    private_settings_type: 'private-settings'
 };
 module.exports = Object.assign({
 

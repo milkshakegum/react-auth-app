@@ -46,6 +46,7 @@ class LoginPage extends React.Component {
 		// }
 	}
 
+  
 	render() {
     const { formDetails } = this.state;
 		const error = false;
