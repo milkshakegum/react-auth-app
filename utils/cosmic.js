@@ -43,9 +43,9 @@ export default function cosmic(type, params) {
         }
       });
     });
-  } else if (type === "ADD_MEDIA") {
+  } else if ("SEARCH_TYPE") {
     return new Promise(function(resolve, reject) {
-      Cosmic.addMedia(config, params, (err, res) => {
+      Cosmic.getObjectsBySearch(config, params, (err, res) => {
         if (!err) {
           resolve(res);
         } else {

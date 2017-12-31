@@ -62,7 +62,9 @@ class SignUpPage extends React.Component {
     const requestURL = 'api/signup';
     const options = createRequestOptions('POST', requestBody);
     request(requestURL, options)
-      .then(res => console.log("RES", res))
+      .then(data => {
+        console.log("RES", data)
+      })
       .catch(e => console.log("ERR", e))
   }
 
