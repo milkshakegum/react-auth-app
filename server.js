@@ -1,5 +1,6 @@
 import express from 'express';
 import next from 'next';
+import apiRoutes from 'api';
 import config from 'config';
 import compression from 'compression';
 const port = parseInt(process.env.PORT, 10) || 3001
@@ -17,6 +18,8 @@ app.prepare()
   server.use(compression());
   server.use(bodyParser.urlencoded({ extended: false }));
   server.use(bodyParser.json());
+
+  server.use('/api', apiRoutes);
   server.post('/sendEmail', (req, res) => {
     getObjects(config.private_settings_type).then((object) => {
       sendEmail(req.body, object[0].metadata)

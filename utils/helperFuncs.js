@@ -1,7 +1,5 @@
 
-import { find, assign, filter, forOwn, lowerCase } from 'lodash';
-import { isNumeric } from 'utils/validations';
-
+import { assign } from 'lodash';
 
 export const submitFormData = (formData) => {
   let newFormData = {};
@@ -28,3 +26,19 @@ export const submitFormData = (formData) => {
   return newFormData;
 };
 
+
+
+export const createRequestOptions = (requestMethod, requestBody = null, requestHeader = null) => {
+  const options = {
+    method: requestMethod,
+    headers: assign({
+      'Content-Type': 'application/json',
+    }, requestHeader),
+  };
+
+  if (requestBody && (requestMethod === 'POST' || requestMethod === 'PUT' || requestMethod === 'PATCH')) {
+    options.body = JSON.stringify(requestBody);
+  }
+
+  return options;
+};

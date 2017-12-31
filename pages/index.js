@@ -1,6 +1,12 @@
 import React from 'react';
 
 import { validateFormData } from 'utils/validations';
+import cosmic from 'utils/cosmic';
+import md5 from 'utils/encryption';
+import config from 'config';
+import {
+  submitFormData
+} from 'utils/helperFuncs';
 
 import Login from 'components/views/Auth/Login';
 // console.log(validateFormData)
@@ -40,10 +46,26 @@ class LoginPage extends React.Component {
   }
 
 	componentWillReceiveProps(newProps) {
-		// const { loginUserStatus } = newProps;
-		// if (loginUserStatus.get('loggedIn')) {
-		// 	this.props.onReplaceRoute("/")
-		// }
+		
+    const params = {
+      write_key: config.bucket.write_key,
+      type_slug: config.users_type,
+      title: data.name,
+      metafields: [{
+        value: data.email,
+        key: "email",
+        title: "Email",
+      }, {
+        value: md5.hash(data.password),
+        key: "password",
+        title: "Password",
+      }],
+    };
+    cosmic("ADD", params)
+      .then((res) => {
+        console.log("RES:", res)
+      })
+      .catch(e => console.log(e));
 	}
 
   

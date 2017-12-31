@@ -1,12 +1,11 @@
 import React from 'react';
-import 'isomorphic-fetch';
+import request from 'utils/request';
 import { validateFormData } from 'utils/validations';
-import cosmic from 'utils/cosmic';
 import config from 'config';
 import SignUp from 'components/views/Auth/SignUp';
-import md5 from 'utils/encryption';
 
 import {
+  createRequestOptions,
   submitFormData
 } from 'utils/helperFuncs';
 
@@ -59,25 +58,12 @@ class SignUpPage extends React.Component {
 	}
 
   onSignup = (data) => {
-    const params = {
-      write_key: config.bucket.write_key,
-      type_slug: config.users_type,
-      title: data.name,
-      metafields: [{
-        value: data.email,
-        key: "email",
-        title: "Email",
-      }, {
-        value: md5.hash(data.password),
-        key: "password",
-        title: "Password",
-      }],
-    };
-    cosmic("ADD", params)
-      .then((res) => {
-        console.log("RES:", res)
-      })
-      .catch(e => console.log(e));
+    const requestBody = { data };
+    const requestURL = 'api/signup';
+    const options = createRequestOptions('POST', requestBody);
+    request(requestURL, options)
+      .then(res => console.log("RES", res))
+      .catch(e => console.log("ERR", e))
   }
 
 	render() {
