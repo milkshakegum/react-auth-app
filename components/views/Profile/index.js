@@ -14,7 +14,7 @@ class Profile extends React.Component { // eslint-disable-line react/prefer-stat
 
 
   render() {
-    const { formDetails, error } = this.props;
+    const { user } = this.props;
     return (
       <div>
         <Grid
@@ -25,11 +25,11 @@ class Profile extends React.Component { // eslint-disable-line react/prefer-stat
           <Grid.Column style={{ maxWidth: 450, marginTop: "13vh" }}>
             <Header as='h2' color='teal' textAlign='left'>
               <Icon name="user" />
-              {' '}Muhammad Musa
+              {' '}{user.title||""}
             </Header>
             <Header as='h2' color='teal' textAlign='left'>
               <Icon name="mail" />
-              {' '}musaghauri@hotmail.com
+              {' '}{user.metadata.email}
             </Header>
             
             <Message>

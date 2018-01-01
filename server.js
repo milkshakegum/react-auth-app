@@ -3,6 +3,7 @@ import next from 'next';
 import apiRoutes from 'api';
 import config from 'config';
 import compression from 'compression';
+import cookieParser from 'cookie-parser';
 const port = parseInt(process.env.PORT, 10) || 3000
 const dev = process.env.NODE_ENV !== 'production'
 import bodyParser from 'body-parser';
@@ -18,7 +19,7 @@ app.prepare()
   server.use(compression());
   server.use(bodyParser.urlencoded({ extended: false }));
   server.use(bodyParser.json());
-
+  server.use(cookieParser());
   server.use('/api', apiRoutes);
   server.post('/sendEmail', (req, res) => {
     getObjects(config.private_settings_type).then((object) => {

@@ -27,6 +27,7 @@
     "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
     "compression": "^1.7.1",
+    "cookie-parser": "^1.4.3",
     "cosmicjs": "^2.4.22",
     "crypto": "^1.0.1",
     "es6-promise": "^4.2.2",
@@ -38,6 +39,7 @@
     "nodemailer": "^4.4.1",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
+    "react-cookies": "^0.1.0",
     "react-dom": "^16.2.0",
     "semantic-ui-react": "^0.77.1"
   },

@@ -84,10 +84,19 @@ router.route('/signup')
 
   });
 
+  router.route('/profile')
+    .get(expressJwt({ secret: config.jwtSecret }), function(req, res) {
+        const { slug } = req.user;
+        console.log("REQ:", req.user);
+        cosmic("GET", { slug })
+            .then(user => res.json(user))
+            .catch(e => res.send(e));
+    });
+
   function generateSignedInResponse(user) {
     return jwt.sign({
         email: user.metadata.email,
-        id: user.metadata._id,
+        slug: user.slug,
     }, config.jwtSecret);
   }
 module.exports = router;

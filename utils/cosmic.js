@@ -13,6 +13,16 @@ export default function cosmic(type, params) {
         }
       });
     });
+  } else if (type === "GET") {
+    return new Promise(function(resolve, reject) {
+      Cosmic.getObject(config, params, (err, res) => {
+        if (!err) {
+          resolve(res.object);
+        } else {
+          reject(err);
+        }
+      });
+    });
   } else if (type === "ADD") {
     return new Promise(function(resolve, reject) {
       Cosmic.addObject(config, params, (err, res) => {

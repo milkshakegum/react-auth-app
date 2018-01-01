@@ -7,7 +7,7 @@ import {
   createRequestOptions,
   submitFormData
 } from 'utils/helperFuncs';
-
+import cookies from 'utils/cookies';
 import Login from 'components/views/Auth/Login';
 // console.log(validateFormData)
 class LoginPage extends React.Component {
@@ -52,7 +52,8 @@ class LoginPage extends React.Component {
     const options = createRequestOptions('POST', requestBody);
     request(requestURL, options)
       .then(data => {
-        console.log("RES", data)
+        const user = data.data;
+        cookies.save("token", user.token);
       })
       .catch(e => console.log("ERR", e))
 	}
