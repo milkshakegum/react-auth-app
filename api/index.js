@@ -2,6 +2,8 @@ import express from 'express';
 import config from 'config';
 import cosmic from 'utils/cosmic';
 import md5 from 'utils/encryption';
+import expressJwt from 'express-jwt';
+import jwt from 'jsonwebtoken';
 
 // const request = require('request');
 
@@ -39,7 +41,13 @@ router.route('/signup')
                     }],
                 };
                 cosmic("ADD", params)
-                    .then(addedUser => res.json(addedUser))
+                    .then(addedUser => {
+                        const token = generateSignedInResponse(addedUser.object);
+                        return res.json({
+                            token,
+                            user: addedUser.object,
+                        });
+                    })
                     .catch(e => res.send(e));
             }
         })
@@ -61,13 +69,25 @@ router.route('/signup')
     };
     cosmic("SEARCH_TYPE", searchParams)
         .then(users => {
-            console.log("D", users.objects.all[0].metadata.password)
             if(users.total > 0) {
-                if(md5.validate(users.objects.all[0].metadata.password, data.password)) return res.json({ success: true })
+                if(md5.validate(users.objects.all[0].metadata.password, data.password)) {
+                    const token = generateSignedInResponse(users.objects.all[0])
+                    return res.json({
+                        token,
+                        user: users.objects.all[0],
+                    });
+                }
                 else return res.json({ error: "Credentials are wrong!" });
             } else return res.json({ error: "Credentials are wrong!" });
         })
         .then(e => res.send(e));
 
   });
+
+  function generateSignedInResponse(user) {
+    return jwt.sign({
+        email: user.metadata.email,
+        id: user.metadata._id,
+    }, config.jwtSecret);
+  }
 module.exports = router;

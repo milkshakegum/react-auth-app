@@ -3,7 +3,7 @@ import next from 'next';
 import apiRoutes from 'api';
 import config from 'config';
 import compression from 'compression';
-const port = parseInt(process.env.PORT, 10) || 3001
+const port = parseInt(process.env.PORT, 10) || 3000
 const dev = process.env.NODE_ENV !== 'production'
 import bodyParser from 'body-parser';
 const app = next({ dev })
