@@ -50,7 +50,7 @@ class EditProfile extends React.Component { // eslint-disable-line react/prefer-
               errorText={!formDetails.name.status ? formDetails.name.errorText : ''}
             />
               
-            <TextField
+            {/* <TextField
               icon="lock"
               label="Password"
               name="password"
@@ -58,7 +58,7 @@ class EditProfile extends React.Component { // eslint-disable-line react/prefer-
               value={formDetails.password.value||""}
               handleChange={this.handleChange}
               errorText={!formDetails.password.status ? formDetails.password.errorText : ''}
-            />
+            /> */}
 
             <SubmitButton
               color="teal"

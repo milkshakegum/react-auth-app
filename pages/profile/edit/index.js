@@ -3,30 +3,63 @@ import React from 'react';
 import Dashboard from 'components/views/Dashboard';
 import EditProfile from 'components/views/Profile/Edit';
 import { validateFormData } from 'utils/validations';
+import 'isomorphic-fetch';
+import {
+    createRequestOptions
+  } from 'utils/helperFuncs';
+  import cookie from 'utils/cookies';
 
 
 
 class EditProfilePage extends React.Component {
 
+    static async getInitialProps({ req }) {
+        
+        const isServer = typeof window === 'undefined';
+        if(isServer) {
+            const baseUrl = req ? `${req.protocol}://${req.get('Host')}` : '';
+            const token = req.cookies.token;
+            const requestURL = `${baseUrl}/api/profile`;
+            const options = createRequestOptions('GET', null, { Authorization: `Bearer ${token}` });
+            const requestObject = await fetch(requestURL, options);
+            const user = await requestObject.json();
+            return { user, isServer };
+        } else {
+            return { isServer };
+        }
+    }
+
+    async componentWillMount() {
+        if(!this.props.isServer){
+            const { state } = this;
+            const token = cookie.load('token');
+            const requestURL = `/api/profile`;
+            const options = createRequestOptions('GET', null, { Authorization: `Bearer ${token}` });
+            const requestObject = await fetch(requestURL, options);
+            const user = await requestObject.json();
+            this.setState({ ...state, formDetails: { name: { value: user.title }} });
+        }
+    }
+
     constructor(props) {
-        super(props);
+    super(props);
         this.state = {
-          formDetails: {
+            formDetails: {
             name: {
-                status: true,
+                status: false,
                 errorText: '',
-                value: '',
+                value: !!this.props.user? this.props.user.title:"",
                 rules: ['isRequired'],
             },
-            password: {
-              status: true,
-              errorText: '',
-              value: '',
-              rules: ['isRequired'],
+            // password: {
+            //   status: true,
+            //   errorText: '',
+            //   value: this.props.user.metadata.password,
+            //   rules: ['isRequired'],
+            // },
             },
-          },
         }
-      }
+    }
 
     updateFormDetails = (formDetails) => {
         this.setState({ formDetails });
@@ -38,15 +71,12 @@ class EditProfilePage extends React.Component {
     
       submitForm = (formDetails) => { // eslint-disable-line no-unused-vars
         const userData = submitFormData(formDetails);
-            this.props.onLoginUser(userData);
+            this.props.onEditUser(userData);
       }
     
-        componentWillReceiveProps(newProps) {
-            // const { loginUserStatus } = newProps;
-            // if (loginUserStatus.get('loggedIn')) {
-            // 	this.props.onReplaceRoute("/")
-            // }
-        }
+      onEditUser = (data) => {
+        
+      }
     
 	render() {
         const { formDetails } = this.state;
