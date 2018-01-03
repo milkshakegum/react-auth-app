@@ -1,11 +1,12 @@
 import React from 'react';
-
+import request from 'utils/request';
 import Dashboard from 'components/views/Dashboard';
 import EditProfile from 'components/views/Profile/Edit';
 import { validateFormData } from 'utils/validations';
 import 'isomorphic-fetch';
 import {
-    createRequestOptions
+    createRequestOptions,
+    submitFormData
   } from 'utils/helperFuncs';
   import cookie from 'utils/cookies';
 
@@ -42,7 +43,7 @@ class EditProfilePage extends React.Component {
     }
 
     constructor(props) {
-    super(props);
+        super(props);
         this.state = {
             formDetails: {
             name: {
@@ -71,11 +72,20 @@ class EditProfilePage extends React.Component {
     
       submitForm = (formDetails) => { // eslint-disable-line no-unused-vars
         const userData = submitFormData(formDetails);
-            this.props.onEditUser(userData);
+        this.onEditUser(userData);
       }
     
       onEditUser = (data) => {
-        
+        const token = cookie.load('token');
+        const requestBody = { data };
+        const requestURL = '/api/profile';
+        const options = createRequestOptions('PUT', requestBody, { Authorization: `Bearer ${token}` });
+        request(requestURL, options)
+          .then(data => {
+            const user = data.data;
+            cookie.save("token", user.token);
+          })
+          .catch(e => console.log("ERR", e))
       }
     
 	render() {

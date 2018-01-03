@@ -9,7 +9,7 @@ import {
 } from 'utils/helperFuncs';
 import cookies from 'utils/cookies';
 import Login from 'components/views/Auth/Login';
-// console.log(validateFormData)
+
 class LoginPage extends React.Component {
 
   constructor(props) {

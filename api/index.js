@@ -87,9 +87,24 @@ router.route('/signup')
   router.route('/profile')
     .get(expressJwt({ secret: config.jwtSecret }), function(req, res) {
         const { slug } = req.user;
-        console.log("REQ:", req.user);
         cosmic("GET", { slug })
             .then(user => res.json(user))
+            .catch(e => res.send(e));
+    })
+    .put(expressJwt({ secret: config.jwtSecret }), function(req, res) {
+        const { slug } = req.user;
+        const data = req.body.data;
+        const params = {
+            write_key: config.bucket.write_key,
+            type_slug: config.users_type,
+            slug,
+            title: data.name,
+        };
+        cosmic("EDIT", params)
+            .then(user => res.json({
+                    token: generateSignedInResponse(user.object),
+                    user: user.object,
+                }))
             .catch(e => res.send(e));
     });
 
