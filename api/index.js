@@ -140,7 +140,15 @@ router.route('/signup')
                         }, {
                             value: user.metadata.activation_token,
                             key: "activation_token",
-                            title: "activation_token",
+                            title: "Activation Token",
+                            type: "text",
+                            children: false,
+                            has_length_edit: true,
+                            parent: false
+                        }, {
+                            value: user.metadata.activation_token,
+                            key: "reset_code",
+                            title: "Reset Code",
                             type: "text",
                             children: false,
                             has_length_edit: true,
