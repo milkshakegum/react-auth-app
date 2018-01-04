@@ -52,6 +52,26 @@ class ResetPassword extends React.Component { // eslint-disable-line react/prefe
 
                 <TextField
                   icon='lock'
+                  name="otp"
+                  label='OTP'
+                  type='text'
+                  value={formDetails.otp.value||""}
+                  handleChange={(name, value) => this.handleChange(name, value)}
+                  errorText={!formDetails.otp.status ? formDetails.otp.errorText : ''}
+                />
+
+                <TextField
+                  icon='mail'
+                  name="email"
+                  label='Email'
+                  type='text'
+                  value={formDetails.email.value||""}
+                  handleChange={(name, value) => this.handleChange(name, value)}
+                  errorText={!formDetails.email.status ? formDetails.email.errorText : ''}
+                />
+                
+                <TextField
+                  icon='lock'
                   name="password"
                   label='New Password'
                   type='password'

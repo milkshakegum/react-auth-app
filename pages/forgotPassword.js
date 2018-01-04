@@ -47,17 +47,17 @@ class ForgotPasswordPage extends React.Component {
 	}
 
   onForgotPassword = async (data) => {
-    this.setState({ error: false });
-    const requestBody = { data };
-    const requestURL = '/api/forgot-password';
-    const options = createRequestOptions('POST', requestBody);
-    const response = await request(requestURL, options);
-    if(!response.err) {
-      const user = response.data;
-    } else {
-      this.setState({ error: response.err.reason });
-    }
-}
+      this.setState({ error: false });
+      const requestBody = { data };
+      const requestURL = '/api/forgot-password';
+      const options = createRequestOptions('POST', requestBody);
+      const response = await request(requestURL, options);
+      if(!response.err) {
+        const user = response.data;
+      } else {
+        this.setState({ error: response.err.reason });
+      }
+  }
 
 	render() {
     const { formDetails } = this.state;

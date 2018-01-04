@@ -5,8 +5,6 @@ import sendEmail from 'utils/email';
 import md5 from 'utils/encryption';
 import expressJwt from 'express-jwt';
 import jwt from 'jsonwebtoken';
-console.log(sendEmail);
-
 // const request = require('request');
 
 const router = express.Router(); // eslint-disable-line new-cap
@@ -249,6 +247,72 @@ router.route('/profile/password')
             .catch(e => res.send(e));
         
     });
+
+
+    router.route('/reset-password')
+    .post(function(req, res) {
+        const data = req.body.data;
+        const searchParams = {
+            type_slug: config.users_type,
+            metafield_key: 'email',
+            metafield_value: data.email,
+            limit: 5,
+            skip: 0,
+            sort: '-created_at', // optional, if sort is needed. (use one option from 'created_at,-created_at,modified_at,-modified_at,random')
+        };
+        cosmic("SEARCH_TYPE", searchParams)
+            .then(users => {
+                if(users.total > 0) {
+                    const user = users.objects.all[0];
+                    if(Number(data.otp) === user.metadata.reset_code) {
+                        
+                        const params = {
+                            write_key: config.bucket.write_key,
+                            type_slug: config.users_type,
+                            slug: user.slug,
+                            metafields: [{
+                                value: md5.hash(user.metadata.password),
+                                key: "password",
+                                title: "Password",
+                                type: "text",
+                                children: false,
+                                has_length_edit: true,
+                                parent: false
+                            }, {
+                                value: user.metadata.email,
+                                key: "email",
+                                title: "Email",
+                                type: "text",
+                                children: false,
+                                has_length_edit: true,
+                                parent: false
+                            }, {
+                                value: user.metadata.activation_token,
+                                key: "activation_token",
+                                title: "Activation Token",
+                                type: "text",
+                                children: false,
+                                has_length_edit: true,
+                                parent: false
+                            }, {
+                                value: null,
+                                key: "reset_code",
+                                title: "Reset Code",
+                                type: "text",
+                                children: false,
+                                has_length_edit: true,
+                                parent: false
+                            }]
+                        };
+                        cosmic("EDIT", params)
+                            .then(updatedUser => res.json({ success: true}))
+                            .catch(e => res.status(500).send(e));
+                    } else return res.status(404).send({ message: "OTP is incorrect!" });
+                } else return res.status(404).send({ message: "This user is not registered!" });
+            })
+            .catch(e => res.send(e));
+    });
+
   function generateSignedInResponse(user) {
     return jwt.sign({
         email: user.metadata.email,
