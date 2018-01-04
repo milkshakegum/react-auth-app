@@ -1,15 +1,16 @@
 import express from 'express';
 import config from 'config';
 import cosmic from 'utils/cosmic';
+import sendEmail from 'utils/email';
 import md5 from 'utils/encryption';
 import expressJwt from 'express-jwt';
 import jwt from 'jsonwebtoken';
+console.log(sendEmail);
 
 // const request = require('request');
 
 const router = express.Router(); // eslint-disable-line new-cap
 
-/** POST /api/auth/login - Returns token if correct username and password is provided */
 router.route('/signup')
   .post(function(req, res) {
     const data = req.body.data;
@@ -55,7 +56,7 @@ router.route('/signup')
 
   });
 
-  router.route('/signin')
+router.route('/signin')
     .post(function(req, res) {
     const data = req.body.data;
 
@@ -82,9 +83,94 @@ router.route('/signup')
         })
         .then(e => res.send(e));
 
-  });
+});
 
-  router.route('/profile')
+
+router.route('/forgot-password')
+    .post(function(req, res) {
+        const data = req.body.data;
+        const searchParams = {
+            type_slug: config.users_type,
+            metafield_key: 'email',
+            metafield_value: data.email,
+            limit: 5,
+            skip: 0,
+            sort: '-created_at', // optional, if sort is needed. (use one option from 'created_at,-created_at,modified_at,-modified_at,random')
+        };
+        cosmic("SEARCH_TYPE", searchParams)
+            .then(users => {
+                if(users.total > 0) {
+                    const user = users.objects.all[0];
+                    const params = {
+                        write_key: config.bucket.write_key,
+                        type_slug: config.users_type,
+                        slug: user.slug,
+                        metafields: [{
+                            value: user.metadata.password,
+                            key: "password",
+                            title: "Password",
+                            type: "text",
+                            children: false,
+                            has_length_edit: true,
+                            parent: false
+                        }, {
+                            value: user.metadata.email,
+                            key: "email",
+                            title: "Email",
+                            type: "text",
+                            children: false,
+                            has_length_edit: true,
+                            parent: false
+                        }, {
+                            value: user.metadata.activation_token,
+                            key: "activation_token",
+                            title: "Activation Token",
+                            type: "text",
+                            children: false,
+                            has_length_edit: true,
+                            parent: false
+                        }, {
+                            value: Math.floor(Math.random()*90000) + 10000,
+                            key: "reset_code",
+                            title: "Reset Code",
+                            type: "text",
+                            children: false,
+                            has_length_edit: true,
+                            parent: false
+                        }]
+                    };
+                    cosmic("EDIT", params)
+                        .then(updatedUser => {
+                            // console.log("CODEL ", updated);
+                            cosmic("GET_TYPE", { type_slug: config.private_settings_type })
+                                .then(settings => {
+                                    // console.log("SETTINGS: ", settings)
+                                    // console.log(updatedUser);
+                                    // console.log("WOW")
+                                    const emailParams = {
+                                        from: settings[0].metadata.from_email,
+                                        to: data.email,
+                                        subject: "Reset Password recovery OTP",
+                                        textType: "html",
+                                        text: `<h1>Your reset password OTP is ${updatedUser.object.metadata.reset_code}</h1>`
+                                    };
+                                    sendEmail(emailParams, settings[0].metadata)
+                                    .then(emailRes => {
+                                        console.log(emailRes);
+                                        return res.json({ succes: true })
+                                    })
+                                    .catch(e => res.send(e));
+                                   
+                                })
+                                .catch(e => res.send(e));
+                        })
+                        .catch(e => res.status(500).send(e));
+                } else return res.status(401).send({ message: "This user is not registered!" });
+            })
+            .catch(e => res.send(e));
+    });
+
+router.route('/profile')
     .get(expressJwt({ secret: config.jwtSecret }), function(req, res) {
         const { slug } = req.user;
         cosmic("GET", { slug })
@@ -108,15 +194,13 @@ router.route('/signup')
             .catch(e => res.send(e));
     });
 
-    router.route('/profile/password')
+router.route('/profile/password')
     .put(expressJwt({ secret: config.jwtSecret }), function(req, res) {
         const { slug } = req.user;
         const data = req.body.data;
         cosmic("GET", { slug })
             .then(user => {
-                console.log("STATUS: ", md5.validate(user.metadata.password, data.old_password))
                 if(md5.validate(user.metadata.password, data.old_password)) {
-                    console.log(data.new_password)
                     const params = {
                         write_key: config.bucket.write_key,
                         type_slug: config.users_type,
@@ -146,7 +230,7 @@ router.route('/signup')
                             has_length_edit: true,
                             parent: false
                         }, {
-                            value: user.metadata.activation_token,
+                            value: user.metadata.reset_code,
                             key: "reset_code",
                             title: "Reset Code",
                             type: "text",
