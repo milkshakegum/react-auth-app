@@ -41,7 +41,11 @@ class EditPassword extends React.Component { // eslint-disable-line react/prefer
               <Icon name="user" />
               {' '}Edit Password
             </Header>
-              
+            {
+              !!error && <Message negative>
+                <p>{error}</p>
+              </Message>
+            }
             <TextField
               label="Old Password"
               name="old_password"

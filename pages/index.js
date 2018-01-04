@@ -15,6 +15,7 @@ class LoginPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      error: false,
       formDetails: {
         email: {
           status: true,
@@ -45,23 +46,23 @@ class LoginPage extends React.Component {
 		this.onLoginUser(userData);
   }
 
-	onLoginUser(data) {
-		
-    const requestBody = { data };
-    const requestURL = 'api/signin';
-    const options = createRequestOptions('POST', requestBody);
-    request(requestURL, options)
-      .then(data => {
-        const user = data.data;
+	onLoginUser = async (data) => {
+      this.setState({ error: false });
+      const requestBody = { data };
+      const requestURL = '/api/signin';
+      const options = createRequestOptions('POST', requestBody);
+      const response = await request(requestURL, options);
+      if(!response.err) {
+        const user = response.data;
         cookies.save("token", user.token);
-      })
-      .catch(e => console.log("ERR", e))
+      } else {
+        this.setState({ error: response.err.reason });
+      }
 	}
 
   
 	render() {
-    const { formDetails } = this.state;
-		const error = false;
+    const { formDetails, error } = this.state;
 		return (
         <Login 
           formDetails={formDetails}

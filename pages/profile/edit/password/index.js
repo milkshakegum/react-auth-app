@@ -47,6 +47,7 @@ class EditPasswordPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            error: false,
             formDetails: {
                 old_password: {
                     status: false,
@@ -83,23 +84,23 @@ class EditPasswordPage extends React.Component {
         this.onEditPassword(userData);
       }
     
-      onEditPassword = (data) => {
-        const token = cookies.load('token');
+      onEditPassword = async (data) => {
+        this.setState({ error: false });
         const requestBody = { data };
         const requestURL = '/api/profile/password';
-        console.log("TOKEN", cookies.load('token'))
+        const token = cookies.load('token');
         const options = createRequestOptions('PUT', requestBody, { Authorization: `Bearer ${token}` });
-        request(requestURL, options)
-          .then(data => {
-            const user = data.data;
+        const response = await request(requestURL, options);
+        if(!response.err) {
+            const user = response.data;
             cookies.save("token", user.token);
-          })
-          .catch(e => console.log("ERR", e))
+        } else {
+            this.setState({ error: response.err.reason });
+        }
       }
     
 	render() {
-        const { formDetails } = this.state;
-        const error = false;
+        const { formDetails, error } = this.state;
         return (
             <Dashboard>
                 <EditPassword            

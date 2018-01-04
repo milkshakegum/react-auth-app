@@ -15,6 +15,7 @@ class SignUpPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      error: false,
       formDetails: {
         name: {
             status: true,
@@ -58,21 +59,22 @@ class SignUpPage extends React.Component {
 		// }
 	}
 
-  onSignup = (data) => {
+  onSignup = async (data) => {
+    this.setState({ error: false });
     const requestBody = { data };
     const requestURL = 'api/signup';
     const options = createRequestOptions('POST', requestBody);
-    request(requestURL, options)
-      .then(data => {
-        const user = data.data;
-        cookies.save("token", user.token);
-      })
-      .catch(e => console.log("ERR", e))
+    const response = await request(requestURL, options);
+    if(!response.err) {
+      const user = response.data;
+      cookies.save("token", user.token);
+    } else {
+      this.setState({ error: response.err.reason });
+    }
   }
 
 	render() {
-    const { formDetails } = this.state;
-		const error = false;
+    const { formDetails, error } = this.state;
 		return (
         <SignUp 
           formDetails={formDetails}

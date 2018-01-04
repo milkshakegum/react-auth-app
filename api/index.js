@@ -24,7 +24,7 @@ router.route('/signup')
     };
     cosmic("SEARCH_TYPE", searchParams)
         .then(users => {
-            if(users.total > 0) return res.status(401).send({ error: "This user is already registered!" });
+            if(users.total > 0) return res.status(401).send({ message: "This user is already registered!" });
             else {
                 const params = {
                     write_key: config.bucket.write_key,
@@ -77,8 +77,8 @@ router.route('/signup')
                         user: users.objects.all[0],
                     });
                 }
-                else return res.status(401).send({ error: "Credentials are wrong!" });
-            } else return res.status(401).send({ error: "Credentials are wrong!" });
+                else return res.status(401).send({ message: "Credentials are wrong!" });
+            } else return res.status(401).send({ message: "Credentials are wrong!" });
         })
         .then(e => res.send(e));
 
@@ -151,7 +151,7 @@ router.route('/signup')
                         .then(updatedUser => res.json({ user: updatedUser.object }))
                         .catch(e => res.send(e));
                 } else {
-                    res.status(401).send({ error: "Old password is not correct" })
+                    res.status(401).send({ message: "Old password is not correct" })
                 }
             })
             .catch(e => res.send(e));
