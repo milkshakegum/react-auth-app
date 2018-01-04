@@ -24,7 +24,7 @@ router.route('/signup')
     };
     cosmic("SEARCH_TYPE", searchParams)
         .then(users => {
-            if(users.total > 0) return res.json({ error: "This user is already registered!" });
+            if(users.total > 0) return res.status(401).send({ error: "This user is already registered!" });
             else {
                 const params = {
                     write_key: config.bucket.write_key,
@@ -77,8 +77,8 @@ router.route('/signup')
                         user: users.objects.all[0],
                     });
                 }
-                else return res.json({ error: "Credentials are wrong!" });
-            } else return res.json({ error: "Credentials are wrong!" });
+                else return res.status(401).send({ error: "Credentials are wrong!" });
+            } else return res.status(401).send({ error: "Credentials are wrong!" });
         })
         .then(e => res.send(e));
 
@@ -108,6 +108,55 @@ router.route('/signup')
             .catch(e => res.send(e));
     });
 
+    router.route('/profile/password')
+    .put(expressJwt({ secret: config.jwtSecret }), function(req, res) {
+        const { slug } = req.user;
+        const data = req.body.data;
+        cosmic("GET", { slug })
+            .then(user => {
+                console.log("STATUS: ", md5.validate(user.metadata.password, data.old_password))
+                if(md5.validate(user.metadata.password, data.old_password)) {
+                    console.log(data.new_password)
+                    const params = {
+                        write_key: config.bucket.write_key,
+                        type_slug: config.users_type,
+                        slug,
+                        metafields: [{
+                            value: md5.hash(data.new_password),
+                            key: "password",
+                            title: "Password",
+                            type: "text",
+                            children: false,
+                            has_length_edit: true,
+                            parent: false
+                        }, {
+                            value: user.metadata.email,
+                            key: "email",
+                            title: "Email",
+                            type: "text",
+                            children: false,
+                            has_length_edit: true,
+                            parent: false
+                        }, {
+                            value: user.metadata.activation_token,
+                            key: "activation_token",
+                            title: "activation_token",
+                            type: "text",
+                            children: false,
+                            has_length_edit: true,
+                            parent: false
+                        }]
+                    };
+                    cosmic("EDIT", params)
+                        .then(updatedUser => res.json({ user: updatedUser.object }))
+                        .catch(e => res.send(e));
+                } else {
+                    res.status(401).send({ error: "Old password is not correct" })
+                }
+            })
+            .catch(e => res.send(e));
+        
+    });
   function generateSignedInResponse(user) {
     return jwt.sign({
         email: user.metadata.email,

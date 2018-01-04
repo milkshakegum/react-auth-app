@@ -46,18 +46,12 @@ class EditProfilePage extends React.Component {
         super(props);
         this.state = {
             formDetails: {
-            name: {
-                status: false,
-                errorText: '',
-                value: !!this.props.user? this.props.user.title:"",
-                rules: ['isRequired'],
-            },
-            // password: {
-            //   status: true,
-            //   errorText: '',
-            //   value: this.props.user.metadata.password,
-            //   rules: ['isRequired'],
-            // },
+                name: {
+                    status: false,
+                    errorText: '',
+                    value: !!this.props.user? this.props.user.title:"",
+                    rules: ['isRequired'],
+                },
             },
         }
     }
