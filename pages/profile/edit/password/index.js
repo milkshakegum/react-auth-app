@@ -73,18 +73,18 @@ class EditPasswordPage extends React.Component {
 
     updateFormDetails = (formDetails) => {
         this.setState({ formDetails });
-      }
-    
-      validateForm = (formData) => {
+    }
+
+    validateForm = (formData) => {
         return validateFormData(formData);
-      }
-    
-      submitForm = (formDetails) => { // eslint-disable-line no-unused-vars
+    }
+
+    submitForm = (formDetails) => { // eslint-disable-line no-unused-vars
         const userData = submitFormData(formDetails);
         this.onEditPassword(userData);
-      }
+    }
     
-      onEditPassword = async (data) => {
+    onEditPassword = async (data) => {
         this.setState({ error: false });
         const requestBody = { data };
         const requestURL = '/api/profile/password';
@@ -93,11 +93,10 @@ class EditPasswordPage extends React.Component {
         const response = await request(requestURL, options);
         if(!response.err) {
             const user = response.data;
-            cookies.save("token", user.token);
         } else {
             this.setState({ error: response.err.reason });
         }
-      }
+    }
     
 	render() {
         const { formDetails, error } = this.state;
