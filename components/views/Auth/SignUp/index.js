@@ -85,7 +85,7 @@ class SignUp extends React.Component { // eslint-disable-line react/prefer-state
               </Segment>
             </Form>
             <Message>
-              Already have the account? <Link href="/">Login</Link>
+              Already have the account? <Link href="/"><a>Login</a></Link>
             </Message>
           </Grid.Column>
         </Grid>

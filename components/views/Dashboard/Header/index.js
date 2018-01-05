@@ -5,10 +5,16 @@
 */
 
 import React from 'react';
+import Router from 'next/router';
+import cookie from 'utils/cookies';
 
 import { Container, Divider, Dropdown, Image, Menu } from 'semantic-ui-react';
 
 class Header extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  logout = () => {
+    cookie.remove('token');
+    Router.push("/")
+  }
   render() {
     return (
       <Menu fixed='top' inverted>
@@ -21,7 +27,7 @@ class Header extends React.Component { // eslint-disable-line react/prefer-state
             />
             Muhammad Musa
           </Menu.Item>
-          <Menu.Item onClick={()=>console.log("AA")} key="log_out" position="right">
+          <Menu.Item onClick={this.logout} key="log_out" position="right">
             Logout
           </Menu.Item>
         </Container>

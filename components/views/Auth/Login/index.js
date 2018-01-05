@@ -75,8 +75,8 @@ class Login extends React.Component { // eslint-disable-line react/prefer-statel
               </Segment>
             </Form>
             <Message>
-              New to us? <Link href="/signup">Sign Up</Link> <br />
-               <Link href="/forgotPassword">Forgot Password?</Link>
+              New to us? <Link href="/signup"><a>Sign Up</a></Link> <br />
+               <Link href="/forgotPassword"><a>Forgot Password?</a></Link>
             </Message>
           </Grid.Column>
         </Grid>

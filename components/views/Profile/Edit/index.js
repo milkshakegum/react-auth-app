@@ -70,7 +70,7 @@ class EditProfile extends React.Component { // eslint-disable-line react/prefer-
               onSubmit={this.handleSubmit}
             />
             <Message>
-              Go back to your <Link href="/profile">Profile</Link>
+              Go back to your <Link href="/profile"><a>Profile</a></Link>
             </Message>
           </Grid.Column>
         </Grid>

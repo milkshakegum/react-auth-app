@@ -33,7 +33,7 @@ class Profile extends React.Component { // eslint-disable-line react/prefer-stat
             </Header>
             
             <Message>
-              Do you want to edit your profile? <Link href="/profile/edit">Edit</Link>
+              Do you want to edit your profile? <Link href="/profile/edit"><a>Edit</a></Link>
             </Message>
           </Grid.Column>
         </Grid>
