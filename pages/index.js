@@ -17,6 +17,7 @@ class LoginPage extends React.Component {
     super(props);
     this.state = {
       error: false,
+      loading: false,
       formDetails: {
         email: {
           status: true,
@@ -48,27 +49,29 @@ class LoginPage extends React.Component {
   }
 
 	onLoginUser = async (data) => {
-      this.setState({ error: false });
+      this.setState({ error: false, loading: true });
       const requestBody = { data };
       const requestURL = '/api/signin';
       const options = createRequestOptions('POST', requestBody);
       const response = await request(requestURL, options);
       if(!response.err) {
+        this.setState({ loading: false });
         const user = response.data;
         cookies.save("token", user.token);
         Router.push('/profile');
       } else {
-        this.setState({ error: response.err.reason });
+        this.setState({ error: response.err.reason, loading: false });
       }
 	}
 
   
 	render() {
-    const { formDetails, error } = this.state;
+    const { formDetails, error, loading } = this.state;
 		return (
         <Login 
           formDetails={formDetails}
           error={error}
+          loading={loading}
 
           validateForm={this.validateForm}
           updateFormDetails={this.updateFormDetails}

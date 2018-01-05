@@ -6,7 +6,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Grid, Icon, Header, Message } from 'semantic-ui-react';
+import { Grid, Icon, Header, Loader, Dimmer, Message } from 'semantic-ui-react';
 
 import TextField from 'components/widgets/Form/TextField';
 import SubmitButton from 'components/widgets/Form/SubmitButton';
@@ -28,9 +28,13 @@ class EditProfile extends React.Component { // eslint-disable-line react/prefer-
   }
 
   render() {
-    const { formDetails, success } = this.props;
+    const { formDetails, success, loading } = this.props;
+    console.log(formDetails)
     return (
       <div>
+        <Dimmer active={loading}>
+          <Loader size='massive'>Loading...</Loader>
+        </Dimmer>
         <Grid
           textAlign='center'
           style={{ height: '100%', }}

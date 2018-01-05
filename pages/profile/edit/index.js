@@ -46,6 +46,7 @@ class EditProfilePage extends React.Component {
         super(props);
         this.state = {
             success: false,
+            loading: false,
             formDetails: {
                 name: {
                     status: false,
@@ -72,7 +73,7 @@ class EditProfilePage extends React.Component {
     
       onEditUser = (data) => {
         const token = cookie.load('token');
-        this.setState({ success: false });
+        this.setState({ success: false, loading: true });
         const requestBody = { data };
         const requestURL = '/api/profile';
         const options = createRequestOptions('PUT', requestBody, { Authorization: `Bearer ${token}` });
@@ -80,18 +81,19 @@ class EditProfilePage extends React.Component {
           .then(data => {
             const user = data.data;
             cookie.save("token", user.token);
-            this.setState({ success: "Your profile has been edited successfully!" });
+            this.setState({ success: "Your profile has been edited successfully!", loading: false });
           })
-          .catch(e => console.log("ERR", e))
+          .catch(e => this.setState({ loading: false }));
       }
     
 	render() {
-        const { formDetails, success } = this.state;
+        const { formDetails, success, loading } = this.state;
         return (
             <Dashboard>
                 <EditProfile            
                     formDetails={formDetails}
                     success={success}
+                    loading={loading}
 
                     validateForm={this.validateForm}
                     updateFormDetails={this.updateFormDetails}

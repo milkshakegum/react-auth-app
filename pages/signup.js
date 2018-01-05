@@ -17,6 +17,7 @@ class SignUpPage extends React.Component {
     super(props);
     this.state = {
       error: false,
+      loading: false,
       formDetails: {
         name: {
             status: true,
@@ -53,34 +54,30 @@ class SignUpPage extends React.Component {
 		this.onSignup(userData);
   }
 
-	componentWillReceiveProps(newProps) {
-		// const { loginUserStatus } = newProps;
-		// if (loginUserStatus.get('loggedIn')) {
-		// 	this.props.onReplaceRoute("/")
-		// }
-	}
 
   onSignup = async (data) => {
-    this.setState({ error: false });
+    this.setState({ error: false, loading: true });
     const requestBody = { data };
     const requestURL = 'api/signup';
     const options = createRequestOptions('POST', requestBody);
     const response = await request(requestURL, options);
     if(!response.err) {
+      this.setState({  loading: true });
       const user = response.data;
       cookies.save("token", user.token);
       Router.push("/");
     } else {
-      this.setState({ error: response.err.reason });
+      this.setState({ error: response.err.reason, loading: false });
     }
   }
 
 	render() {
-    const { formDetails, error } = this.state;
+    const { formDetails, error, loading } = this.state;
 		return (
         <SignUp 
           formDetails={formDetails}
           error={error}
+          loading={loading}
 
           validateForm={this.validateForm}
           updateFormDetails={this.updateFormDetails}

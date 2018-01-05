@@ -6,7 +6,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Grid, Icon, Header, Message } from 'semantic-ui-react';
+import { Grid, Dimmer, Loader, Icon, Header, Message } from 'semantic-ui-react';
 
 
 class Profile extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -14,9 +14,12 @@ class Profile extends React.Component { // eslint-disable-line react/prefer-stat
 
 
   render() {
-    const { user } = this.props;
+    const { user, loading } = this.props;
     return (
       <div>
+        <Dimmer active={loading}>
+          <Loader size='massive'>Loading...</Loader>
+        </Dimmer>
         <Grid
           textAlign='center'
           style={{ height: '100%', }}

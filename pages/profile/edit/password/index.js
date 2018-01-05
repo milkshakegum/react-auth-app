@@ -26,6 +26,7 @@ class EditPasswordPage extends React.Component {
         this.state = {
             error: false,
             success: false,
+            loading: false,
             formDetails: {
                 old_password: {
                     status: false,
@@ -63,7 +64,7 @@ class EditPasswordPage extends React.Component {
     }
     
     onEditPassword = async (data) => {
-        this.setState({ error: false, success: false });
+        this.setState({ error: false, success: false, loading: true });
         const requestBody = { data };
         const requestURL = '/api/profile/password';
         const token = cookies.load('token');
@@ -71,20 +72,21 @@ class EditPasswordPage extends React.Component {
         const response = await request(requestURL, options);
         if(!response.err) {
             const user = response.data;
-            this.setState({ success: "Your password is edited successfully!" });
+            this.setState({ success: "Your password is edited successfully!", loading: false });
         } else {
-            this.setState({ error: response.err.reason });
+            this.setState({ error: response.err.reason, loading: false });
         }
     }
     
 	render() {
-        const { formDetails, error, success } = this.state;
+        const { formDetails, error, success, loading } = this.state;
         return (
             <Dashboard>
                 <EditPassword            
                     formDetails={formDetails}
                     error={error}
                     success={success}
+                    loading={loading}
 
                     validateForm={this.validateForm}
                     updateFormDetails={this.updateFormDetails}

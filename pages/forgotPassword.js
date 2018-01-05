@@ -18,6 +18,7 @@ class ForgotPasswordPage extends React.Component {
     this.state = {
       error: false,
       success: false,
+      loading: false,
       formDetails: {
         email: {
           status: true,
@@ -50,26 +51,27 @@ class ForgotPasswordPage extends React.Component {
 	}
 
   onForgotPassword = async (data) => {
-      this.setState({ error: false, success: false });
+      this.setState({ error: false, success: false, loading: true });
       const requestBody = { data };
       const requestURL = '/api/forgot-password';
       const options = createRequestOptions('POST', requestBody);
       const response = await request(requestURL, options);
       if(!response.err) {
         const user = response.data;
-        this.setState({ success: true });
+        this.setState({ success: true, loading: false });
       } else {
-        this.setState({ error: response.err.reason });
+        this.setState({ error: response.err.reason, loading: false });
       }
   }
 
 	render() {
-    const { formDetails, error, success } = this.state;
+    const { formDetails, error, success, loading } = this.state;
 		return (
         <ForgotPassword 
           formDetails={formDetails}
           error={error}
           success={success}
+          loading={loading}
 
           validateForm={this.validateForm}
           updateFormDetails={this.updateFormDetails}

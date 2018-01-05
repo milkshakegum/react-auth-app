@@ -6,7 +6,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react';
+import { Form, Grid, Header, Dimmer, Loader, Image, Message, Segment } from 'semantic-ui-react';
 
 import TextField from 'components/widgets/Form/TextField';
 import SubmitButton from 'components/widgets/Form/SubmitButton';
@@ -29,9 +29,12 @@ class ResetPassword extends React.Component { // eslint-disable-line react/prefe
 
 
   render() {
-    const { formDetails, error } = this.props;
+    const { formDetails, error, loading } = this.props;
     return (
       <div>
+        <Dimmer active={loading}>
+          <Loader size='massive'>Resetting Password</Loader>
+        </Dimmer>
         <Grid
           textAlign='center'
           style={{ height: '100%', }}

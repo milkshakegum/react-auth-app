@@ -28,17 +28,19 @@ class ProfilePage extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            user: props.user
+            user: props.user,
+            loading: false,
         }
     }
     async componentWillMount() {
         if(!this.props.isServer){
+            this.setState({ loading: true });
             const token = cookie.load('token');
             const requestURL = `/api/profile`;
             const options = createRequestOptions('GET', null, { Authorization: `Bearer ${token}` });
             const requestObject = await fetch(requestURL, options);
             const user = await requestObject.json();
-            this.setState({ user });
+            this.setState({ user, loading: false });
         }
     }
 	render() {
@@ -47,6 +49,7 @@ class ProfilePage extends React.Component {
             <Dashboard>
                 <Profile 
                     user={this.state.user}
+                    loading={this.state.loading}
                 />
             </Dashboard>
 		);

@@ -6,7 +6,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react';
+import { Form, Grid, Dimmer, Loader, Header, Image, Message, Segment } from 'semantic-ui-react';
 
 import TextField from 'components/widgets/Form/TextField';
 import SubmitButton from 'components/widgets/Form/SubmitButton';
@@ -29,10 +29,13 @@ class ForgotPassword extends React.Component { // eslint-disable-line react/pref
 
 
   render() {
-    const { formDetails, error, success } = this.props;
-    console.log(success)
+    const { formDetails, error, success, loading } = this.props;
+    
     return (
       <div>
+        <Dimmer active={loading}>
+          <Loader size='massive'>Sending Email...</Loader>
+        </Dimmer>
         <Grid
           textAlign='center'
           style={{ height: '100%', }}
