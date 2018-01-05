@@ -8,6 +8,7 @@ const environment = {
 }[process.env.NODE_ENV || 'development'];
 const prod = process.env.NODE_ENV === 'production';
 const config = {
+    API_HOST: !!prod? 'http://localhost:3000/api':'http://localhost:3000/api',
     bucket: {
         slug: process.env.COSMIC_BUCKET || 'react-auth-app',
         read_key: process.env.COSMIC_READ_KEY || "XTVIUr1swolMSy9jyoHeuc9RKavSv2w444x8Jsfe24MwaxSNoy",

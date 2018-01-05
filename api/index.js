@@ -5,6 +5,7 @@ import sendEmail from 'utils/email';
 import md5 from 'utils/encryption';
 import expressJwt from 'express-jwt';
 import jwt from 'jsonwebtoken';
+import randomstring from 'randomstring';
 // const request = require('request');
 
 const router = express.Router(); // eslint-disable-line new-cap
@@ -37,10 +38,26 @@ router.route('/signup')
                         value: md5.hash(data.password),
                         key: "password",
                         title: "Password",
+                    }, {
+                        value: randomstring.generate(),
+                        key: "activation_token",
+                        title: "Activation",
                     }],
                 };
                 cosmic("ADD", params)
                     .then(addedUser => {
+                        cosmic("GET_TYPE", { type_slug: config.private_settings_type })
+                            .then(settings => {
+                                const emailParams = {
+                                    from: settings[0].metadata.from_email,
+                                    to: addedUser.object.metadata.email,
+                                    subject: "Account activation link",
+                                    textType: "html",
+                                    text: `<h1>To activate your account, Click <a href="${config.API_HOST}/activate-account?email=${addedUser.object.metadata.email}&token=${addedUser.object.metadata.activation_token}">here</a></h1>`
+                                };
+                                sendEmail(emailParams, settings[0].metadata)                                
+                            })
+                            .catch(e => res.send(e));
                         const token = generateSignedInResponse(addedUser.object);
                         return res.json({
                             token,
@@ -50,10 +67,72 @@ router.route('/signup')
                     .catch(e => res.send(e));
             }
         })
-        .then(e => res.send(e));
+        .catch(e => res.send(e));
 
   });
 
+  
+router.route('/activate-account')
+    .get(function(req, res) {
+    const { token, email }  = req.query;
+    const searchParams = {
+        type_slug: config.users_type,
+        metafield_key: 'email',
+        metafield_value: email,
+        limit: 5,
+        skip: 0,
+        sort: '-created_at', // optional, if sort is needed. (use one option from 'created_at,-created_at,modified_at,-modified_at,random')
+    };
+    cosmic("SEARCH_TYPE", searchParams)
+        .then(users => {
+            if(users.total <= 0) return res.status(401).send({ message: "This user doesn't exist!" });
+            else {
+                const user = users.objects.all[0];
+                const params = {
+                    write_key: config.bucket.write_key,
+                    type_slug: config.users_type,
+                    slug: user.slug,
+                    metafields: [{
+                        value: user.metadata.password,
+                        key: "password",
+                        title: "Password",
+                        type: "text",
+                        children: false,
+                        has_length_edit: true,
+                        parent: false
+                    }, {
+                        value: user.metadata.email,
+                        key: "email",
+                        title: "Email",
+                        type: "text",
+                        children: false,
+                        has_length_edit: true,
+                        parent: false
+                    }, {
+                        value: null,
+                        key: "activation_token",
+                        title: "Activation Token",
+                        type: "text",
+                        children: false,
+                        has_length_edit: true,
+                        parent: false
+                    }, {
+                        value: null,
+                        key: "reset_code",
+                        title: "Reset Code",
+                        type: "text",
+                        children: false,
+                        has_length_edit: true,
+                        parent: false
+                    }]
+                };
+                cosmic("EDIT", params)
+                    .then(updatedUser => res.json({ success: true }))
+                    .catch(e => res.send(e));
+            }
+        })
+        .catch(e => res.send(e));
+    });
 router.route('/signin')
     .post(function(req, res) {
     const data = req.body.data;
@@ -69,14 +148,16 @@ router.route('/signin')
     cosmic("SEARCH_TYPE", searchParams)
         .then(users => {
             if(users.total > 0) {
-                if(md5.validate(users.objects.all[0].metadata.password, data.password)) {
-                    const token = generateSignedInResponse(users.objects.all[0])
-                    return res.json({
-                        token,
-                        user: users.objects.all[0],
-                    });
-                }
-                else return res.status(401).send({ message: "Credentials are wrong!" });
+                const user = users.objects.all[0];
+                if(!user.metadata.activation_token){
+                    if(md5.validate(user.metadata.password, data.password)) {
+                        const token = generateSignedInResponse(user)
+                        return res.json({
+                            token,
+                            user,
+                        });
+                    }
+                } else return res.status(401).send({ message: "Please activate your account!" });
             } else return res.status(401).send({ message: "Credentials are wrong!" });
         })
         .then(e => res.send(e));
@@ -139,12 +220,8 @@ router.route('/forgot-password')
                     };
                     cosmic("EDIT", params)
                         .then(updatedUser => {
-                            // console.log("CODEL ", updated);
                             cosmic("GET_TYPE", { type_slug: config.private_settings_type })
                                 .then(settings => {
-                                    // console.log("SETTINGS: ", settings)
-                                    // console.log(updatedUser);
-                                    // console.log("WOW")
                                     const emailParams = {
                                         from: settings[0].metadata.from_email,
                                         to: data.email,
@@ -153,10 +230,7 @@ router.route('/forgot-password')
                                         text: `<h1>Your reset password OTP is ${updatedUser.object.metadata.reset_code}</h1>`
                                     };
                                     sendEmail(emailParams, settings[0].metadata)
-                                    .then(emailRes => {
-                                        console.log(emailRes);
-                                        return res.json({ succes: true })
-                                    })
+                                    .then(emailRes => res.json({ succes: true }))
                                     .catch(e => res.send(e));
                                    
                                 })
