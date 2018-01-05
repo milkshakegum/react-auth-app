@@ -28,7 +28,7 @@ class EditProfile extends React.Component { // eslint-disable-line react/prefer-
   }
 
   render() {
-    const { formDetails, error } = this.props;
+    const { formDetails, success } = this.props;
     return (
       <div>
         <Grid
@@ -41,7 +41,11 @@ class EditProfile extends React.Component { // eslint-disable-line react/prefer-
               <Icon name="user" />
               {' '}Edit Profile
             </Header>
-              
+            {
+              !!success && <Message success>
+                <p>{success}</p>
+              </Message>
+            }
             <TextField
               label="Full Name"
               name="name"

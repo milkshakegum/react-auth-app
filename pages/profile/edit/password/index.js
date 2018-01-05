@@ -17,37 +17,15 @@ class EditPasswordPage extends React.Component {
     static async getInitialProps({ req }) {
         
         const isServer = typeof window === 'undefined';
-        // if(isServer) {
-        //     const baseUrl = req ? `${req.protocol}://${req.get('Host')}` : '';
-        //     const token = req.cookies.token;
-        //     const requestURL = `${baseUrl}/api/profile`;
-        //     const options = createRequestOptions('GET', null, { Authorization: `Bearer ${token}` });
-        //     const requestObject = await fetch(requestURL, options);
-        //     const user = await requestObject.json();
-        //     return { user, isServer };
-        // } else {
-        //     return { isServer };
-        // }
-
         return { isServer };
     }
 
-    // async componentWillMount() {
-    //     if(!this.props.isServer){
-    //         const { state } = this;
-    //         const token = cookie.load('token');
-    //         const requestURL = `/api/profile`;
-    //         const options = createRequestOptions('GET', null, { Authorization: `Bearer ${token}` });
-    //         const requestObject = await fetch(requestURL, options);
-    //         const user = await requestObject.json();
-    //         this.setState({ ...state, formDetails: { name: { value: user.title }} });
-    //     }
-    // }
 
     constructor(props) {
         super(props);
         this.state = {
             error: false,
+            success: false,
             formDetails: {
                 old_password: {
                     status: false,
@@ -85,7 +63,7 @@ class EditPasswordPage extends React.Component {
     }
     
     onEditPassword = async (data) => {
-        this.setState({ error: false });
+        this.setState({ error: false, success: false });
         const requestBody = { data };
         const requestURL = '/api/profile/password';
         const token = cookies.load('token');
@@ -93,18 +71,20 @@ class EditPasswordPage extends React.Component {
         const response = await request(requestURL, options);
         if(!response.err) {
             const user = response.data;
+            this.setState({ success: "Your password is edited successfully!" });
         } else {
             this.setState({ error: response.err.reason });
         }
     }
     
 	render() {
-        const { formDetails, error } = this.state;
+        const { formDetails, error, success } = this.state;
         return (
             <Dashboard>
                 <EditPassword            
                     formDetails={formDetails}
                     error={error}
+                    success={success}
 
                     validateForm={this.validateForm}
                     updateFormDetails={this.updateFormDetails}

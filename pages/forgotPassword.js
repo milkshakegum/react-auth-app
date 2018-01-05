@@ -1,4 +1,5 @@
 import React from 'react';
+import Router from 'next/router';
 
 import { validateFormData } from 'utils/validations';
 
@@ -15,6 +16,8 @@ class ForgotPasswordPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      error: false,
+      success: false,
       formDetails: {
         email: {
           status: true,
@@ -47,25 +50,26 @@ class ForgotPasswordPage extends React.Component {
 	}
 
   onForgotPassword = async (data) => {
-      this.setState({ error: false });
+      this.setState({ error: false, success: false });
       const requestBody = { data };
       const requestURL = '/api/forgot-password';
       const options = createRequestOptions('POST', requestBody);
       const response = await request(requestURL, options);
       if(!response.err) {
         const user = response.data;
+        this.setState({ success: true });
       } else {
         this.setState({ error: response.err.reason });
       }
   }
 
 	render() {
-    const { formDetails } = this.state;
-		const error = false;
+    const { formDetails, error, success } = this.state;
 		return (
         <ForgotPassword 
           formDetails={formDetails}
           error={error}
+          success={success}
 
           validateForm={this.validateForm}
           updateFormDetails={this.updateFormDetails}

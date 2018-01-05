@@ -1,4 +1,5 @@
 import React from 'react';
+import Router from 'next/router';
 
 import { validateFormData } from 'utils/validations';
 import {
@@ -71,6 +72,7 @@ class ResetPasswordPage extends React.Component {
     const response = await request(requestURL, options);
     if(!response.err) {
       const user = response.data;
+      Router.push("/");
     } else {
       this.setState({ error: response.err.reason });
     }

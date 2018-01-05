@@ -29,7 +29,8 @@ class ForgotPassword extends React.Component { // eslint-disable-line react/pref
 
 
   render() {
-    const { formDetails, error } = this.props;
+    const { formDetails, error, success } = this.props;
+    console.log(success)
     return (
       <div>
         <Grid
@@ -49,7 +50,11 @@ class ForgotPassword extends React.Component { // eslint-disable-line react/pref
                     <p>{error}</p>
                   </Message>
                 }
-
+                {
+                  !!success && <Message color='green'>
+                    <p>OTP has been sent to {formDetails.email.value}</p> <Link href="/resetPassword"><a>Reset Password</a></Link>
+                  </Message>
+                }
                 <TextField
                   icon="mail"
                   label="Email"

@@ -28,7 +28,7 @@ class EditPassword extends React.Component { // eslint-disable-line react/prefer
   }
 
   render() {
-    const { formDetails, error } = this.props;
+    const { formDetails, error, success } = this.props;
     return (
       <div>
         <Grid
@@ -44,6 +44,11 @@ class EditPassword extends React.Component { // eslint-disable-line react/prefer
             {
               !!error && <Message negative>
                 <p>{error}</p>
+              </Message>
+            }
+            {
+              !!success && <Message success>
+                <p>{success}</p>
               </Message>
             }
             <TextField

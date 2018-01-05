@@ -1,5 +1,6 @@
 import React from 'react';
 import request from 'utils/request';
+import Router from 'next/router';
 import { validateFormData } from 'utils/validations';
 import config from 'config';
 import SignUp from 'components/views/Auth/SignUp';
@@ -68,6 +69,7 @@ class SignUpPage extends React.Component {
     if(!response.err) {
       const user = response.data;
       cookies.save("token", user.token);
+      Router.push("/");
     } else {
       this.setState({ error: response.err.reason });
     }

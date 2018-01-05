@@ -1,4 +1,5 @@
 import React from 'react';
+import Router from 'next/router';
 
 import { validateFormData } from 'utils/validations';
 import request from 'utils/request';
@@ -55,6 +56,7 @@ class LoginPage extends React.Component {
       if(!response.err) {
         const user = response.data;
         cookies.save("token", user.token);
+        Router.push('/profile');
       } else {
         this.setState({ error: response.err.reason });
       }
