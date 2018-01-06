@@ -6,7 +6,8 @@ import 'isomorphic-fetch';
 import {
     createRequestOptions
   } from 'utils/helperFuncs';
-import cookie from 'utils/cookies';
+import cookies from 'utils/cookies';
+import Router from 'next/router';
 class ProfilePage extends React.Component {
 
     static async getInitialProps({ req }) {
@@ -33,9 +34,11 @@ class ProfilePage extends React.Component {
         }
     }
     async componentWillMount() {
-        if(!this.props.isServer){
+        const token = cookies.load('token');
+        if(!token) Router.push("/");
+        else if (!this.props.isServer){
             this.setState({ loading: true });
-            const token = cookie.load('token');
+            const token = cookies.load('token');
             const requestURL = `/api/profile`;
             const options = createRequestOptions('GET', null, { Authorization: `Bearer ${token}` });
             const requestObject = await fetch(requestURL, options);

@@ -8,6 +8,7 @@ import {
   submitFormData
 } from 'utils/helperFuncs';
 import request from 'utils/request';
+import cookies from 'utils/cookies';
 
 import ForgotPassword from 'components/views/Auth/ForgotPassword';
 // console.log(validateFormData)
@@ -43,12 +44,10 @@ class ForgotPasswordPage extends React.Component {
 		this.onForgotPassword(userData);
   }
 
-	componentWillReceiveProps(newProps) {
-		// const { loginUserStatus } = newProps;
-		// if (loginUserStatus.get('loggedIn')) {
-		// 	this.props.onReplaceRoute("/")
-		// }
-	}
+  componentWillMount() {
+    const token = cookies.load('token');
+    if(!!token) Router.push('/profile');
+  }
 
   onForgotPassword = async (data) => {
       this.setState({ error: false, success: false, loading: true });

@@ -64,6 +64,10 @@ class LoginPage extends React.Component {
       }
 	}
 
+  componentWillMount() {
+    const token = cookies.load('token');
+    if(!!token) Router.push('/profile');
+  }
   
 	render() {
     const { formDetails, error, loading } = this.state;

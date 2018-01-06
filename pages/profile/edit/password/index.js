@@ -9,6 +9,7 @@ import {
     submitFormData
   } from 'utils/helperFuncs';
 import cookies from 'utils/cookies';
+import Router from 'next/router';
 
 
 
@@ -78,6 +79,11 @@ class EditPasswordPage extends React.Component {
         }
     }
     
+
+    componentWillMount() {
+        const token = cookies.load('token');
+        if(!token) Router.push('/');
+    }
 	render() {
         const { formDetails, error, success, loading } = this.state;
         return (

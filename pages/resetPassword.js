@@ -1,5 +1,6 @@
 import React from 'react';
 import Router from 'next/router';
+import cookies from 'utils/cookies';
 
 import { validateFormData } from 'utils/validations';
 import {
@@ -58,11 +59,9 @@ class ResetPasswordPage extends React.Component {
 		this.onResetPassword(userData);
   }
 
-	componentWillReceiveProps(newProps) {
-		// const { loginUserStatus } = newProps;
-		// if (loginUserStatus.get('loggedIn')) {
-		// 	this.props.onReplaceRoute("/")
-		// }
+  componentWillMount() {
+    const token = cookies.load('token');
+    if(!!token) Router.push('/profile');
   }
   
   onResetPassword = async (data) => {

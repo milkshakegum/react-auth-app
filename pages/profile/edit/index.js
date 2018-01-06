@@ -8,7 +8,8 @@ import {
     createRequestOptions,
     submitFormData
   } from 'utils/helperFuncs';
-  import cookie from 'utils/cookies';
+  import cookies from 'utils/cookies';
+  import Router from 'next/router';
 
 
 
@@ -31,9 +32,11 @@ class EditProfilePage extends React.Component {
     }
 
     async componentWillMount() {
-        if(!this.props.isServer){
+        const token = cookies.load('token');
+        if(!token) Router.push("/");
+        else if(!this.props.isServer){
             const { state } = this;
-            const token = cookie.load('token');
+            const token = cookies.load('token');
             const requestURL = `/api/profile`;
             const options = createRequestOptions('GET', null, { Authorization: `Bearer ${token}` });
             const requestObject = await fetch(requestURL, options);
@@ -60,7 +63,7 @@ class EditProfilePage extends React.Component {
 
     updateFormDetails = (formDetails) => {
         this.setState({ formDetails });
-      }
+    }
     
       validateForm = (formData) => {
         return validateFormData(formData);
@@ -72,7 +75,7 @@ class EditProfilePage extends React.Component {
       }
     
       onEditUser = (data) => {
-        const token = cookie.load('token');
+        const token = cookies.load('token');
         this.setState({ success: false, loading: true });
         const requestBody = { data };
         const requestURL = '/api/profile';
@@ -80,7 +83,7 @@ class EditProfilePage extends React.Component {
         request(requestURL, options)
           .then(data => {
             const user = data.data;
-            cookie.save("token", user.token);
+            cookies.save("token", user.token);
             this.setState({ success: "Your profile has been edited successfully!", loading: false });
           })
           .catch(e => this.setState({ loading: false }));
