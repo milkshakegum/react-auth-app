@@ -53,7 +53,7 @@ router.route('/signup')
                                     to: addedUser.object.metadata.email,
                                     subject: "Account activation link",
                                     textType: "html",
-                                    text: `<h1>To activate your account, Click <a href="${config.API_HOST}/activate-account?email=${addedUser.object.metadata.email}&token=${addedUser.object.metadata.activation_token}">here</a></h1>`
+                                    text: `<h1>To activate your account, Click <a href="${config.API_HOST}/activateAccount?email=${addedUser.object.metadata.email}&token=${addedUser.object.metadata.activation_token}">here</a></h1>`
                                 };
                                 sendEmail(emailParams, settings[0].metadata)                                
                             })
