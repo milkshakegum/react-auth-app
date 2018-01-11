@@ -41,7 +41,10 @@ class EditProfilePage extends React.Component {
             const options = createRequestOptions('GET', null, { Authorization: `Bearer ${token}` });
             const requestObject = await fetch(requestURL, options);
             const user = await requestObject.json();
-            this.setState({ ...state, formDetails: { name: { value: user.title }} });
+            const tempFormDetails = Object.assign({}, this.state.formDetails);
+            tempFormDetails.name.value = user.title;
+            this.updateFormDetails(tempFormDetails);
+            // this.setState({ ...state, formDetails: { name: { value: user.title }} });
         }
     }
 
