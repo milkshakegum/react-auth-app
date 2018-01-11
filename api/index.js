@@ -153,7 +153,7 @@ router.route('/signin')
                             token,
                             user,
                         });
-                    }
+                    } else return res.status(401).send({ message: "Credentials are wrong!" });
                 } else return res.status(401).send({ message: "Please activate your account!" });
             } else return res.status(401).send({ message: "Credentials are wrong!" });
         })

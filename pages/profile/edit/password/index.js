@@ -3,13 +3,13 @@ import request from 'utils/request';
 import Dashboard from 'components/views/Dashboard';
 import EditPassword from 'components/views/Profile/Password';
 import { validateFormData } from 'utils/validations';
+import Router from 'next/router';
 import 'isomorphic-fetch';
 import {
     createRequestOptions,
     submitFormData
   } from 'utils/helperFuncs';
 import cookies from 'utils/cookies';
-import Router from 'next/router';
 
 
 
@@ -80,7 +80,7 @@ class EditPasswordPage extends React.Component {
     }
     
 
-    componentWillMount() {
+    async componentWillMount() {
         const token = cookies.load('token');
         if(!token) Router.push('/');
     }

@@ -64,7 +64,6 @@ class SignUpPage extends React.Component {
     if(!response.err) {
       this.setState({  loading: true });
       const user = response.data;
-      cookies.save("token", user.token);
       Router.push("/");
     } else {
       this.setState({ error: response.err.reason, loading: false });
