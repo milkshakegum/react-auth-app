@@ -8,7 +8,7 @@ const environment = {
 }[process.env.NODE_ENV || 'development'];
 const prod = process.env.NODE_ENV === 'production';
 const config = {
-    API_HOST: !!prod ? 'http://localhost:3000' : 'http://localhost:3000',
+    API_HOST: !!prod ? process.env.HOST : 'http://localhost:3000',
     bucket: {
         slug: process.env.COSMIC_BUCKET,
         read_key: process.env.COSMIC_READ_KEY,
