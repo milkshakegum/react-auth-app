@@ -2,3 +2,4 @@
 /npm-debug.log
 /.next
 /coverage
+.env

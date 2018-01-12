@@ -10,6 +10,7 @@ import {
     submitFormData
   } from 'utils/helperFuncs';
 import cookies from 'utils/cookies';
+import Head from 'next/head';
 
 
 
@@ -87,18 +88,23 @@ class EditPasswordPage extends React.Component {
 	render() {
         const { formDetails, error, success, loading } = this.state;
         return (
-            <Dashboard>
-                <EditPassword            
-                    formDetails={formDetails}
-                    error={error}
-                    success={success}
-                    loading={loading}
+            <div>
+                <Head>
+                    <title>Edit Password ~ Cosmic.js React Auth App</title>
+                </Head>
+                <Dashboard>
+                    <EditPassword            
+                        formDetails={formDetails}
+                        error={error}
+                        success={success}
+                        loading={loading}
 
-                    validateForm={this.validateForm}
-                    updateFormDetails={this.updateFormDetails}
-                    submitForm={this.submitForm}
-                />
-            </Dashboard>
+                        validateForm={this.validateForm}
+                        updateFormDetails={this.updateFormDetails}
+                        submitForm={this.submitForm}
+                    />
+                </Dashboard>
+            </div>
 		);
 	}
 }

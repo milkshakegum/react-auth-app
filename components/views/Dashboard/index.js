@@ -7,6 +7,7 @@
 import React from 'react';
 
 import Header from './Header';
+import Footer from './Footer';
 import { Container } from 'semantic-ui-react';
 
 // import cookie from 'utils/cookie';
@@ -22,6 +23,7 @@ class Dashboard extends React.Component { // eslint-disable-line react/prefer-st
             {React.Children.toArray(this.props.children)}
           </Container>
           
+          <Footer />
         </div>
       </div>
     );

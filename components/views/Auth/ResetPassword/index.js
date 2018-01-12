@@ -42,7 +42,7 @@ class ResetPassword extends React.Component { // eslint-disable-line react/prefe
         >
           <Grid.Column style={{ maxWidth: 450, marginTop: "13vh" }}>
             <Header as='h2' color='teal' textAlign='center'>
-              <Image src='static/images/logo.png' />
+              <Image src='static/images/logo.svg' />
               {' '}Reset Password
             </Header>
             <Form size='large'>

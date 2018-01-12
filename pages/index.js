@@ -10,6 +10,8 @@ import {
 } from 'utils/helperFuncs';
 import cookies from 'utils/cookies';
 import Login from 'components/views/Auth/Login';
+import Head from 'next/head';
+import Footer from 'components/views/Dashboard/Footer';
 
 class LoginPage extends React.Component {
 
@@ -72,6 +74,10 @@ class LoginPage extends React.Component {
 	render() {
     const { formDetails, error, loading } = this.state;
 		return (
+      <div>
+        <Head>
+          <title>Sign In ~ Cosmic.js React Auth App</title>
+        </Head>
         <Login 
           formDetails={formDetails}
           error={error}
@@ -81,6 +87,8 @@ class LoginPage extends React.Component {
           updateFormDetails={this.updateFormDetails}
           submitForm={this.submitForm}
         />
+        <Footer />
+      </div>
 		);
 	}
 }

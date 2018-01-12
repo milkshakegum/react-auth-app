@@ -22,7 +22,7 @@ class Header extends React.Component { // eslint-disable-line react/prefer-state
           <Menu.Item  as='a' header>
             <Image
               size='mini'
-              src='/static/images/logo.png'
+              src='/static/images/logo.svg'
               style={{ marginRight: '1.5em' }}
             />
             Muhammad Musa

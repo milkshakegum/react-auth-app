@@ -42,7 +42,7 @@ class Login extends React.Component { // eslint-disable-line react/prefer-statel
         >
           <Grid.Column style={{ maxWidth: 450, marginTop: "13vh" }}>
             <Header as='h2' color='teal' textAlign='center'>
-              <Image src='static/images/logo.png' />
+              <Image src='static/images/logo.svg' />
               {' '}Log in to your account
             </Header>
             <Form size='large'>

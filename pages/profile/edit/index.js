@@ -10,6 +10,7 @@ import {
   } from 'utils/helperFuncs';
   import cookies from 'utils/cookies';
   import Router from 'next/router';
+  import Head from 'next/head';
 
 
 
@@ -95,17 +96,22 @@ class EditProfilePage extends React.Component {
 	render() {
         const { formDetails, success, loading } = this.state;
         return (
-            <Dashboard>
-                <EditProfile            
-                    formDetails={formDetails}
-                    success={success}
-                    loading={loading}
+            <div>
+                <Head>
+                    <title>Edit Profile ~ Cosmic.js React Auth App</title>
+                </Head>
+                <Dashboard>
+                    <EditProfile            
+                        formDetails={formDetails}
+                        success={success}
+                        loading={loading}
 
-                    validateForm={this.validateForm}
-                    updateFormDetails={this.updateFormDetails}
-                    submitForm={this.submitForm}
-                />
-            </Dashboard>
+                        validateForm={this.validateForm}
+                        updateFormDetails={this.updateFormDetails}
+                        submitForm={this.submitForm}
+                    />
+                </Dashboard>
+            </div>
 		);
 	}
 }

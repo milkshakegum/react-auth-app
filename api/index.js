@@ -7,7 +7,6 @@ import expressJwt from 'express-jwt';
 import jwt from 'jsonwebtoken';
 import randomstring from 'randomstring';
 // const request = require('request');
-
 const router = express.Router(); // eslint-disable-line new-cap
 
 router.route('/signup')

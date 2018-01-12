@@ -7,6 +7,7 @@ import {
   createRequestOptions,
 } from 'utils/helperFuncs';
 import cookies from 'utils/cookies';
+import Head from 'next/head';
 
 class LoginPage extends React.Component {
 
@@ -41,7 +42,11 @@ class LoginPage extends React.Component {
 	render() {
     const { formDetails, error, loading } = this.state;
 		return (
-            <div></div>
+            <div>  
+              <Head>
+                <title>Activate Account ~ Cosmic.js React Auth App</title>
+              </Head>
+            </div>
 		);
 	}
 }

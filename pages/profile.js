@@ -8,6 +8,7 @@ import {
   } from 'utils/helperFuncs';
 import cookies from 'utils/cookies';
 import Router from 'next/router';
+import Head from 'next/head';
 class ProfilePage extends React.Component {
 
     static async getInitialProps({ req }) {
@@ -49,12 +50,17 @@ class ProfilePage extends React.Component {
 	render() {
         if(!this.state.user) return null;
         return (
-            <Dashboard>
-                <Profile 
-                    user={this.state.user}
-                    loading={this.state.loading}
-                />
-            </Dashboard>
+            <div>
+                <Head>
+                    <title>{!!this.props.user ? this.props.user.title:''} ~ Cosmic.js React Auth App</title>
+                </Head>
+                <Dashboard>
+                    <Profile 
+                        user={this.state.user}
+                        loading={this.state.loading}
+                    />
+                </Dashboard>
+            </div>
 		);
 	}
 }

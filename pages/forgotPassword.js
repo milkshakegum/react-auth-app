@@ -9,6 +9,8 @@ import {
 } from 'utils/helperFuncs';
 import request from 'utils/request';
 import cookies from 'utils/cookies';
+import Head from 'next/head';
+import Footer from 'components/views/Dashboard/Footer';
 
 import ForgotPassword from 'components/views/Auth/ForgotPassword';
 // console.log(validateFormData)
@@ -66,6 +68,10 @@ class ForgotPasswordPage extends React.Component {
 	render() {
     const { formDetails, error, success, loading } = this.state;
 		return (
+      <div>
+        <Head>
+          <title>Forgot Password ~ Cosmic.js React Auth App</title>
+        </Head>
         <ForgotPassword 
           formDetails={formDetails}
           error={error}
@@ -76,6 +82,8 @@ class ForgotPasswordPage extends React.Component {
           updateFormDetails={this.updateFormDetails}
           submitForm={this.submitForm}
         />
+        <Footer />
+        </div>
 		);
 	}
 }
