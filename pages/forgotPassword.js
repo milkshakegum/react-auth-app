@@ -13,7 +13,7 @@ import Head from 'next/head';
 import Footer from 'components/views/Dashboard/Footer';
 
 import ForgotPassword from 'components/views/Auth/ForgotPassword';
-// console.log(validateFormData)
+
 class ForgotPasswordPage extends React.Component {
 
   constructor(props) {

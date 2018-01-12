@@ -26,7 +26,6 @@ class LoginPage extends React.Component {
 
 
   async componentWillMount() {
-    console.log("QUERY: ", this.props.query)
     const { query } = this.props;
     this.setState({ error: false, loading: true });
     const requestURL = `/api/activate-account?token=${query.token}&email=${query.email}`;

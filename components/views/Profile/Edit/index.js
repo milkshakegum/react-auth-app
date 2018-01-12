@@ -29,7 +29,6 @@ class EditProfile extends React.Component { // eslint-disable-line react/prefer-
 
   render() {
     const { formDetails, success, loading } = this.props;
-    console.log(formDetails)
     return (
       <div>
         <Dimmer active={loading}>
