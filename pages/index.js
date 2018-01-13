@@ -11,7 +11,7 @@ import {
 import cookies from 'utils/cookies';
 import Login from 'components/views/Auth/Login';
 import Head from 'next/head';
-import Footer from 'components/views/Dashboard/Footer';
+import Meta from 'components/widgets/Meta';
 
 class LoginPage extends React.Component {
 
@@ -74,7 +74,7 @@ class LoginPage extends React.Component {
 	render() {
     const { formDetails, error, loading } = this.state;
 		return (
-      <div>
+      <Meta>
         <Head>
           <title>Sign In ~ Cosmic.js React Auth App</title>
         </Head>
@@ -87,8 +87,7 @@ class LoginPage extends React.Component {
           updateFormDetails={this.updateFormDetails}
           submitForm={this.submitForm}
         />
-        <Footer />
-      </div>
+      </Meta>
 		);
 	}
 }

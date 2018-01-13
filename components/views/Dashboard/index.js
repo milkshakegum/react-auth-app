@@ -7,7 +7,6 @@
 import React from 'react';
 
 import Header from './Header';
-import Footer from './Footer';
 import { Container } from 'semantic-ui-react';
 
 // import cookie from 'utils/cookie';
@@ -15,15 +14,13 @@ import { Container } from 'semantic-ui-react';
 class Dashboard extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
-      <div style={{ height: "100%" }} className="skin-blue fixed sidebar-open">
+      <div className="skin-blue fixed sidebar-open">
         <div>
           <Header />
 
           <Container text style={{ marginTop: '7em' }}>
             {React.Children.toArray(this.props.children)}
           </Container>
-          
-          <Footer />
         </div>
       </div>
     );

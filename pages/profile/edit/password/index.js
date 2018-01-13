@@ -11,6 +11,7 @@ import {
   } from 'utils/helperFuncs';
 import cookies from 'utils/cookies';
 import Head from 'next/head';
+import Meta from 'components/widgets/Meta';
 
 
 
@@ -88,7 +89,7 @@ class EditPasswordPage extends React.Component {
 	render() {
         const { formDetails, error, success, loading } = this.state;
         return (
-            <div>
+            <Meta>
                 <Head>
                     <title>Edit Password ~ Cosmic.js React Auth App</title>
                 </Head>
@@ -104,7 +105,7 @@ class EditPasswordPage extends React.Component {
                         submitForm={this.submitForm}
                     />
                 </Dashboard>
-            </div>
+            </Meta>
 		);
 	}
 }

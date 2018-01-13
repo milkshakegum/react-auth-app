@@ -11,6 +11,7 @@ import {
   import cookies from 'utils/cookies';
   import Router from 'next/router';
   import Head from 'next/head';
+  import Meta from 'components/widgets/Meta';
 
 
 
@@ -45,7 +46,6 @@ class EditProfilePage extends React.Component {
             const tempFormDetails = Object.assign({}, this.state.formDetails);
             tempFormDetails.name.value = user.title;
             this.updateFormDetails(tempFormDetails);
-            // this.setState({ ...state, formDetails: { name: { value: user.title }} });
         }
     }
 
@@ -96,7 +96,7 @@ class EditProfilePage extends React.Component {
 	render() {
         const { formDetails, success, loading } = this.state;
         return (
-            <div>
+            <Meta>
                 <Head>
                     <title>Edit Profile ~ Cosmic.js React Auth App</title>
                 </Head>
@@ -111,7 +111,7 @@ class EditProfilePage extends React.Component {
                         submitForm={this.submitForm}
                     />
                 </Dashboard>
-            </div>
+            </Meta>
 		);
 	}
 }

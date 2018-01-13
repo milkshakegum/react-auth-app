@@ -19,16 +19,21 @@ class Header extends React.Component { // eslint-disable-line react/prefer-state
     return (
       <Menu fixed='top' inverted>
         <Container>
-          <Menu.Item  as='a' header>
+          <Menu.Item onClick={()=>Router.replace("/profile")}  as='a' header>
             <Image
               size='mini'
               src='/static/images/logo.svg'
               style={{ marginRight: '1.5em' }}
             />
-            Muhammad Musa
+            React Auth App
           </Menu.Item>
-          <Menu.Item onClick={this.logout} key="log_out" position="right">
-            Logout
+          <Menu.Item position="right">
+            <Menu.Item onClick={()=>Router.replace("/profile/edit/password")} key="change_password" >
+              Change Password
+            </Menu.Item>  
+            <Menu.Item onClick={this.logout} key="log_out">
+              Logout
+            </Menu.Item>
           </Menu.Item>
         </Container>
       </Menu>

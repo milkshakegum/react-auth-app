@@ -8,6 +8,7 @@ import {
 } from 'utils/helperFuncs';
 import cookies from 'utils/cookies';
 import Head from 'next/head';
+import Meta from 'components/widgets/Meta';
 
 class LoginPage extends React.Component {
 
@@ -41,11 +42,11 @@ class LoginPage extends React.Component {
 	render() {
     const { formDetails, error, loading } = this.state;
 		return (
-            <div>  
-              <Head>
-                <title>Activate Account ~ Cosmic.js React Auth App</title>
-              </Head>
-            </div>
+      <Meta>  
+        <Head>
+          <title>Activate Account ~ Cosmic.js React Auth App</title>
+        </Head>
+      </Meta>
 		);
 	}
 }

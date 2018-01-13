@@ -9,9 +9,8 @@ import {
 } from 'utils/helperFuncs';
 import request from 'utils/request';
 import Head from 'next/head';
-import Footer from 'components/views/Dashboard/Footer';
-
 import ResetPassword from 'components/views/Auth/ResetPassword';
+import Meta from 'components/widgets/Meta';
 
 class ResetPasswordPage extends React.Component {
 
@@ -85,7 +84,7 @@ class ResetPasswordPage extends React.Component {
     const { formDetails, loading } = this.state;
 		const error = false;
 		return (
-      <div>
+      <Meta>
         <Head>
           <title>Reset Password ~ Cosmic.js React Auth App</title>
         </Head>
@@ -98,8 +97,7 @@ class ResetPasswordPage extends React.Component {
           updateFormDetails={this.updateFormDetails}
           submitForm={this.submitForm}
         />
-        <Footer />
-      </div>
+      </Meta>
 		);
 	}
 }

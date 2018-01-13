@@ -12,6 +12,7 @@ export default class MyDocument extends Document {
           {/* CSS Files */}
           <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css' />
           <link rel='stylesheet' href='/static/css/custom.css' />
+          <link rel='stylesheet' href='/static/css/nprogress.css' />
 
           <script src="/static/js/jquery.min.js" type="text/javascript"></script>
         </Head>
