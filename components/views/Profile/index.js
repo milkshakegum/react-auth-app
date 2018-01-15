@@ -7,6 +7,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Grid, Dimmer, Loader, Icon, Header, Message } from 'semantic-ui-react';
+import Colors from 'components/styles/colors';
 
 
 class Profile extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -26,11 +27,11 @@ class Profile extends React.Component { // eslint-disable-line react/prefer-stat
           verticalAlign='middle'
         >
           <Grid.Column style={{ maxWidth: 450, marginTop: "13vh" }}>
-            <Header as='h2' color='teal' textAlign='left'>
+            <Header as='h2' style={{ color: Colors.primary }} textAlign='left'>
               <Icon name="user" />
               {' '}{user.title||""}
             </Header>
-            <Header as='h2' color='teal' textAlign='left'>
+            <Header as='h2' style={{ color: Colors.primary }} textAlign='left'>
               <Icon name="mail" />
               {' '}{user.metadata.email}
             </Header>

@@ -10,6 +10,7 @@ import { Form, Grid, Header, Dimmer, Loader, Image, Message, Segment } from 'sem
 
 import TextField from 'components/widgets/Form/TextField';
 import SubmitButton from 'components/widgets/Form/SubmitButton';
+import Colors from 'components/styles/colors';
 
 class ResetPassword extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
@@ -41,7 +42,7 @@ class ResetPassword extends React.Component { // eslint-disable-line react/prefe
           verticalAlign='middle'
         >
           <Grid.Column style={{ maxWidth: 450, marginTop: "13vh" }}>
-            <Header as='h2' color='teal' textAlign='center'>
+            <Header as='h2' style={{ color: Colors.primary }} textAlign='center'>
               <Image src='static/images/logo.svg' />
               {' '}Reset Password
             </Header>
@@ -95,7 +96,7 @@ class ResetPassword extends React.Component { // eslint-disable-line react/prefe
                 />
 
                 <SubmitButton
-                  color="teal"
+                  color={Colors.primary}
                   label="Reset Password"
                   onSubmit={this.handleSubmit}
                 />

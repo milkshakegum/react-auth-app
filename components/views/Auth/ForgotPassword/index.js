@@ -10,7 +10,7 @@ import { Form, Grid, Dimmer, Loader, Header, Image, Message, Segment } from 'sem
 
 import TextField from 'components/widgets/Form/TextField';
 import SubmitButton from 'components/widgets/Form/SubmitButton';
-
+import Colors from 'components/styles/colors';
 class ForgotPassword extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   handleChange = (name, value) => {
@@ -42,7 +42,7 @@ class ForgotPassword extends React.Component { // eslint-disable-line react/pref
           verticalAlign='middle'
         >
           <Grid.Column style={{ maxWidth: 450, marginTop: "13vh" }}>
-            <Header as='h2' color='teal' textAlign='center'>
+            <Header as='h2' style={{ color: Colors.primary }} textAlign='center'>
               <Image src='static/images/logo.svg' />
               {' '}Forgot Password?
             </Header>
@@ -68,7 +68,7 @@ class ForgotPassword extends React.Component { // eslint-disable-line react/pref
                 />
 
                 <SubmitButton
-                  color="teal"
+                  color={Colors.primary}
                   label="Forgot Password"
                   onSubmit={this.handleSubmit}
                 />

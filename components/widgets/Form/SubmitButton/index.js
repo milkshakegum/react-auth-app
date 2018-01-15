@@ -10,10 +10,11 @@ import { Button, Icon } from 'semantic-ui-react';
 
 class SubmitButton extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
-    const { style, label, size, onSubmit, icon, ...props } = this.props;
+    const { label, size, onSubmit, icon, color, ...props } = this.props;
 
     return (
       <Button
+        style={{ backgroundColor: color, color: 'white' }}
         fluid
         size={size}
         onClick={onSubmit}

@@ -10,6 +10,7 @@ import { Grid, Icon, Header, Loader, Dimmer, Message } from 'semantic-ui-react';
 
 import TextField from 'components/widgets/Form/TextField';
 import SubmitButton from 'components/widgets/Form/SubmitButton';
+import Colors from 'components/styles/colors';
 
 class EditProfile extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
@@ -40,7 +41,7 @@ class EditProfile extends React.Component { // eslint-disable-line react/prefer-
           verticalAlign='middle'
         >
           <Grid.Column style={{ maxWidth: 450, marginTop: "13vh" }}>
-            <Header as='h2' color='teal' textAlign='center'>
+            <Header as='h2' style={{ color: Colors.primary }} textAlign='center'>
               <Icon name="user" />
               {' '}Edit Profile
             </Header>
@@ -68,7 +69,7 @@ class EditProfile extends React.Component { // eslint-disable-line react/prefer-
             /> */}
 
             <SubmitButton
-              color="teal"
+              color={Colors.primary}
               label="Edit Profile"
               onSubmit={this.handleSubmit}
             />

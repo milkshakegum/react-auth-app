@@ -10,6 +10,7 @@ import { Form, Dimmer, Loader, Grid, Header, Image, Message, Segment } from 'sem
 
 import TextField from 'components/widgets/Form/TextField';
 import SubmitButton from 'components/widgets/Form/SubmitButton';
+import Colors from 'components/styles/colors';
 
 class Login extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
@@ -41,7 +42,7 @@ class Login extends React.Component { // eslint-disable-line react/prefer-statel
           verticalAlign='middle'
         >
           <Grid.Column style={{ maxWidth: 450, marginTop: "13vh" }}>
-            <Header as='h2' color='teal' textAlign='center'>
+            <Header as='h2' style={{ color: Colors.primary }} textAlign='center'>
               <Image src='static/images/logo.svg' />
               {' '}Log in to your account
             </Header>
@@ -71,7 +72,7 @@ class Login extends React.Component { // eslint-disable-line react/prefer-statel
                 />
 
                 <SubmitButton
-                  color="teal"
+                  color={Colors.primary}
                   label="Login"
                   onSubmit={this.handleSubmit}
                 />
