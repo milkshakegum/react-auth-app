@@ -6,9 +6,10 @@ export default class MyDocument extends Document {
     return (
       <html>
         <Head>
-          <meta charset="UTF-8" />
+          <meta charSet="UTF-8" />
           <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />
           <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+          <link rel="shortcut icon" type="image/png" href="/static/favicon.png"/>
           {/* CSS Files */}
           <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css' />
           <link rel='stylesheet' href='/static/css/custom.css' />
