@@ -1,0 +1,91 @@
+{
+	"bucket": {
+		"_id": "5a3f763c3d2f06cf35000056",
+		"slug": "react-auth-app",
+		"title": "React Auth App",
+		"object_types": [
+			{
+				"title": "Users",
+				"slug": "users",
+				"singular": "User",
+				"metafields": [
+					{
+						"required": true,
+						"value": "",
+						"key": "password",
+						"title": "password",
+						"type": "text",
+						"children": null
+					},
+					{
+						"required": true,
+						"value": "",
+						"key": "email",
+						"title": "email",
+						"type": "text",
+						"children": null
+					},
+					{
+						"required": true,
+						"value": "",
+						"key": "activation_token",
+						"title": "Activation Token",
+						"type": "text",
+						"children": null
+					},
+					{
+						"value": "",
+						"key": "reset_code",
+						"title": "Reset Code",
+						"type": "text",
+						"children": null
+					}
+				],
+				"options": {
+					"slug_field": 1,
+					"content_editor": 1
+				},
+				"preview_link": "",
+				"priority_locale": null,
+				"localization": false,
+				"locales": null
+			},
+			{
+				"title": "Private Settings",
+				"slug": "private-settings",
+				"singular": "Private Settings",
+				"metafields": [
+					{
+						"value": "",
+						"key": "mailgun_secret",
+						"title": "MAILGUN_SECRET",
+						"type": "text",
+						"children": null
+					},
+					{
+						"value": "",
+						"key": "from_email",
+						"title": "From Email",
+						"type": "text",
+						"children": null
+					},
+					{
+						"value": "",
+						"key": "mailgun_domain",
+						"title": "Mailgun Domain",
+						"type": "text",
+						"children": null
+					}
+				],
+				"options": {
+					"slug_field": 1,
+					"content_editor": 1
+				},
+				"preview_link": "",
+				"priority_locale": null,
+				"localization": false,
+				"locales": null
+			}
+		]
+	}
+}
