@@ -1,9 +1,9 @@
 # React Auth App using CosmicJS, React and Node
 
 
-> Learn how to build a killer Vue.js blog with a full demo: custom plugin, templating, pagination, filtering, data decoupling, and more!
+> Learn how to build a react auth app using cosmic.js: Login, signup, forgot password, reset password, profile, edit profile, account activation
 
-> [See live demo hosted on Netlify](http://react-auth-app.cosmicapp.co/)
+> [See live demo hosted on CosmicJS](http://react-auth-app.cosmicapp.co/)
 
 > [Read full tutorial on the blog](https://cosmicjs.com/blog/react-auth-app-blog-demo)
 
