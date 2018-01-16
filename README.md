@@ -1,5 +1,6 @@
 # React Auth App using CosmicJS, React and Node
 
+![react-auth-app-demo](screenshots/main-image.png)
 
 > Learn how to build a react auth app using cosmic.js: Login, signup, forgot password, reset password, profile, edit profile, account activation
 
