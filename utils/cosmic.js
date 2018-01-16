@@ -43,16 +43,6 @@ export default function cosmic(type, params) {
         }
       });
     });
-  } else if (type === "DELETE") {
-    return new Promise(function(resolve, reject) {
-      Cosmic.deleteObject(config, params, (err, res) => {
-        if (!err) {
-          resolve(res);
-        } else {
-          reject(err);
-        }
-      });
-    });
   } else if ("SEARCH_TYPE") {
     return new Promise(function(resolve, reject) {
       Cosmic.getObjectsBySearch(config, params, (err, res) => {
