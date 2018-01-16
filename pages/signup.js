@@ -36,7 +36,7 @@ class SignUpPage extends React.Component {
           status: true,
           errorText: '',
           value: '',
-          rules: ['isRequired'],
+          rules: ['isRequired', 'PasswordLimitations'],
         },
       },
     }

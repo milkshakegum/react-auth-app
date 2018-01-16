@@ -41,13 +41,13 @@ class EditPasswordPage extends React.Component {
                     status: false,
                     errorText: '',
                     value: "",
-                    rules: ['isRequired'],
+                    rules: ['isRequired', 'PasswordLimitations'],
                 },
                 new_password_confirm: {
                     status: false,
                     errorText: '',
                     value: "",
-                    rules: ['isRequired'],
+                    rules: ['isRequired', 'PasswordLimitations'],
                 },
             },
         }

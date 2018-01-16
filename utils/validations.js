@@ -15,6 +15,10 @@ export const isEmail = (str = '') => /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;
 
 export const isNumeric = (num) => (!num || (!isNaN(parseInt((num), 10)) && isFinite(num)));
 
+const PasswordLimitations = (password = '') => {
+  return password.length >= 8;
+
+}
 export const isJson = (str) => {
   try {
     JSON.parse(str);
@@ -35,6 +39,10 @@ export const validateField = (formField) => {
         case 'isRequired':
           updatedFormField.status = isRequired(String(fieldValue));
           updatedFormField.errorText = 'Required';
+          break;
+        case 'PasswordLimitations':
+          updatedFormField.status = PasswordLimitations(String(fieldValue));
+          updatedFormField.errorText = 'Password should be greater or equal to 8 letters';
           break;
         case 'isEmail':
           updatedFormField.status = isEmail(fieldValue);

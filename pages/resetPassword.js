@@ -35,13 +35,13 @@ class ResetPasswordPage extends React.Component {
           status: true,
           errorText: '',
           value: '',
-          rules: ['isRequired'],
+          rules: ['isRequired', 'PasswordLimitations'],
         },
         confirmPassword: {
           status: true,
           errorText: '',
           value: '',
-          rules: ['isRequired'],
+          rules: ['isRequired', 'PasswordLimitations'],
         },
       },
     }
