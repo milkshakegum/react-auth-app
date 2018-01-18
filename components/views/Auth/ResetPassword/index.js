@@ -30,7 +30,7 @@ class ResetPassword extends React.Component { // eslint-disable-line react/prefe
 
 
   render() {
-    const { formDetails, error, loading } = this.props;
+    const { formDetails, error, loading, success } = this.props;
     return (
       <div>
         <Dimmer active={loading}>
@@ -53,7 +53,11 @@ class ResetPassword extends React.Component { // eslint-disable-line react/prefe
                     <p>{error}</p>
                   </Message>
                 }
-
+                {
+                  success && <Message positive>
+                    <p>Your Password has been changed! <Link href="/"><a>Login</a></Link></p>
+                  </Message>
+                }
                 <TextField
                   icon='lock'
                   name="otp"

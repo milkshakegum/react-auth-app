@@ -70,7 +70,7 @@ class ForgotPasswordPage extends React.Component {
 		return (
       <Meta>
         <Head>
-          <title>Forgot Password ~ Cosmic.js React Auth App</title>
+          <title>Forgot Password ~ Cosmic JS React Auth App</title>
         </Head>
         <ForgotPassword 
           formDetails={formDetails}

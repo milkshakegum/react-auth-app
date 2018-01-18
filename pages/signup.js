@@ -82,7 +82,7 @@ class SignUpPage extends React.Component {
 		return (
       <Meta>
         <Head>
-          <title>Sign up ~ Cosmic.js React Auth App</title>
+          <title>Sign up ~ Cosmic JS React Auth App</title>
         </Head>
         <SignUp 
           formDetails={formDetails}

@@ -1,35 +1,29 @@
+// import nodemailer from 'nodemailer';
+// import mg from 'nodemailer-mailgun-transport';
 import nodemailer from 'nodemailer';
-import mg from 'nodemailer-mailgun-transport';
-
 export default function sendEmail(body, config) {
   return new Promise((resolve, reject) => {
-
     if (!body.to) {
       reject(false);
     }
-    
-    const auth = {
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
       auth: {
-        api_key: config.mailgun_secret,
-        domain: config.mailgun_domain
+        user: config.email_username,
+        pass: config.email_password
       }
-    };
-
-    let transporter = nodemailer.createTransport(mg(auth));
-
-    // setup email data with unicode symbols
-    let mailOptions = {
-        from: body.from, // sender address
-        to: body.to, // list of receivers
-        subject: body.subject, // Subject line
-        [body.textType]: body.text, // plain text body
-    };
-    
-    // send mail with defined transport object
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) return reject(error);
-      console.log(`Message ${info.messageId} sent: ${info.messageId, info.response}`);
-      resolve(true);
     });
+    transporter.sendMail({
+      from: body.from,
+      to: body.to,
+      subject: body.subject,
+      html: body.text
+    }, (error, response) => {
+      console.log("ERR: ",error)
+      if(error) return reject(error);
+      console.log("RESPONSE: ", response)
+      transporter.close();
+      resolve('true')
+  });
   });
 }

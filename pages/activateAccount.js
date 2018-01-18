@@ -44,7 +44,7 @@ class LoginPage extends React.Component {
 		return (
       <Meta>  
         <Head>
-          <title>Activate Account ~ Cosmic.js React Auth App</title>
+          <title>Activate Account ~ Cosmic JS React Auth App</title>
         </Head>
       </Meta>
 		);

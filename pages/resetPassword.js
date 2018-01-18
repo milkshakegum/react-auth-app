@@ -73,25 +73,26 @@ class ResetPasswordPage extends React.Component {
     const response = await request(requestURL, options);
     if(!response.err) {
       const user = response.data;
-      this.setState({  loading: false })
-      Router.push("/");
+      this.setState({  loading: false, success: true })
+      // Router.push("/");
     } else {
       this.setState({ error: response.err.reason, loading: false });
     }
 }
 
 	render() {
-    const { formDetails, loading } = this.state;
+    const { formDetails, loading, success } = this.state;
 		const error = false;
 		return (
       <Meta>
         <Head>
-          <title>Reset Password ~ Cosmic.js React Auth App</title>
+          <title>Reset Password ~ Cosmic JS React Auth App</title>
         </Head>
         <ResetPassword 
           formDetails={formDetails}
           error={error}
           loading={loading}
+          success={success}
 
           validateForm={this.validateForm}
           updateFormDetails={this.updateFormDetails}

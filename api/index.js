@@ -147,6 +147,7 @@ router.route('/signin')
                 const user = users.objects.all[0];
                 // console.log(!user.metadata.activation_token , Boolean(config.MAILGUN_FLAG))
                 if(!user.metadata.activation_token || config.MAILGUN_FLAG === 'false'){
+                    console.log(user.metadata.password, data.password);
                     if(md5.validate(user.metadata.password, data.password)) {
                         const token = generateSignedInResponse(user)
                         return res.json({
@@ -346,7 +347,7 @@ router.route('/profile/password')
                                 type_slug: config.users_type,
                                 slug: user.slug,
                                 metafields: [{
-                                    value: md5.hash(user.metadata.password),
+                                    value: md5.hash(data.password),
                                     key: "password",
                                     title: "Password",
                                     type: "text",

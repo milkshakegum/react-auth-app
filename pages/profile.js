@@ -53,7 +53,7 @@ class ProfilePage extends React.Component {
         return (
             <Meta>
                 <Head>
-                    <title>{!!this.props.user ? this.props.user.title:''} ~ Cosmic.js React Auth App</title>
+                    <title>{!!this.props.user ? this.props.user.title:''} ~ Cosmic JS React Auth App</title>
                 </Head>
                 <Dashboard>
                     <Profile 

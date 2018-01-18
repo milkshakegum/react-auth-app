@@ -98,7 +98,7 @@ class EditProfilePage extends React.Component {
         return (
             <Meta>
                 <Head>
-                    <title>Edit Profile ~ Cosmic.js React Auth App</title>
+                    <title>Edit Profile ~ Cosmic JS React Auth App</title>
                 </Head>
                 <Dashboard>
                     <EditProfile            

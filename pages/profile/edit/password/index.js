@@ -91,7 +91,7 @@ class EditPasswordPage extends React.Component {
         return (
             <Meta>
                 <Head>
-                    <title>Edit Password ~ Cosmic.js React Auth App</title>
+                    <title>Edit Password ~ Cosmic JS React Auth App</title>
                 </Head>
                 <Dashboard>
                     <EditPassword            

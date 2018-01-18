@@ -76,7 +76,7 @@ class LoginPage extends React.Component {
 		return (
       <Meta>
         <Head>
-          <title>Sign In ~ Cosmic.js React Auth App</title>
+          <title>Sign In ~ Cosmic JS React Auth App</title>
         </Head>
         <Login 
           formDetails={formDetails}
