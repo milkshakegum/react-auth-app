@@ -73,7 +73,13 @@ class ResetPasswordPage extends React.Component {
     const response = await request(requestURL, options);
     if(!response.err) {
       const user = response.data;
-      this.setState({  loading: false, success: true })
+      const tempFormDetails = Object.assign({}, this.state.formDetails);
+      tempFormDetails.otp.value = '';
+      tempFormDetails.email.value = '';
+      tempFormDetails.password.value = '';
+      tempFormDetails.confirmPassword.value = '';
+      this.updateFormDetails(tempFormDetails);
+      this.setState({  loading: false, success: true });
       // Router.push("/");
     } else {
       this.setState({ error: response.err.reason, loading: false });

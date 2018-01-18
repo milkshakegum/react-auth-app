@@ -12,7 +12,7 @@ const router = express.Router(); // eslint-disable-line new-cap
 router.route('/signup')
   .post(function(req, res) {
     const data = req.body.data;
-
+    
     const searchParams = {
         type_slug: config.users_type,
         metafield_key: 'email',
@@ -52,7 +52,7 @@ router.route('/signup')
                                     to: addedUser.object.metadata.email,
                                     subject: "Account activation link",
                                     textType: "html",
-                                    text: `<h1>To activate your account, Click <a href="${config.API_HOST}/activateAccount?email=${addedUser.object.metadata.email}&token=${addedUser.object.metadata.activation_token}">here</a></h1>`
+                                    text: `<h1>To activate your account, Click <a href="${req.protocol}://${req.get('host')}/activateAccount?email=${addedUser.object.metadata.email}&token=${addedUser.object.metadata.activation_token}">here</a></h1>`
                                 };
                                 sendEmail(emailParams, settings[0].metadata)                                
                             })

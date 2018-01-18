@@ -66,6 +66,11 @@ class SignUpPage extends React.Component {
     if(!response.err) {
       this.setState({  loading: false, success: true });
       const user = response.data;
+      const tempFormDetails = Object.assign({}, this.state.formDetails);
+      tempFormDetails.name.value = '';
+      tempFormDetails.email.value = '';
+      tempFormDetails.password.value = '';
+      this.updateFormDetails(tempFormDetails);
       // Router.push("/");
     } else {
       this.setState({ error: response.err.reason, loading: false });

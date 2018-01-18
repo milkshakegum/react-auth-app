@@ -59,6 +59,9 @@ class ForgotPasswordPage extends React.Component {
       const response = await request(requestURL, options);
       if(!response.err) {
         const user = response.data;
+        const tempFormDetails = Object.assign({}, this.state.formDetails);
+        tempFormDetails.email.value = '';
+        this.updateFormDetails(tempFormDetails);
         this.setState({ success: true, loading: false });
       } else {
         this.setState({ error: response.err.reason, loading: false });

@@ -56,7 +56,7 @@ class SignUp extends React.Component { // eslint-disable-line react/prefer-state
 
                 {
                   success && <Message positive>
-                    <p>Account has been successfully Created! <Link href="/"><a>Login</a></Link></p>
+                    <p>Your activation link has been sent to {formDetails.email.value}. Please activate your account!</p>
                   </Message>
                 }
                 
