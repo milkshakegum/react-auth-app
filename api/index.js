@@ -145,9 +145,7 @@ router.route('/signin')
         .then(users => {
             if(users.total > 0) {
                 const user = users.objects.all[0];
-                // console.log(!user.metadata.activation_token , Boolean(config.MAILGUN_FLAG))
                 if(!user.metadata.activation_token || config.MAILGUN_FLAG === 'false'){
-                    console.log(user.metadata.password, data.password);
                     if(md5.validate(user.metadata.password, data.password)) {
                         const token = generateSignedInResponse(user)
                         return res.json({

@@ -6,7 +6,6 @@ import compression from 'compression';
 import cookieParser from 'cookie-parser';
 const port = parseInt(process.env.PORT, 10) || 3000
 const dev = process.env.NODE_ENV !== 'production'
-console.log("DEV: ", dev)
 import bodyParser from 'body-parser';
 const app = next({ dev })
 const handle = app.getRequestHandler()

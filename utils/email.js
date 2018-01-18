@@ -19,9 +19,7 @@ export default function sendEmail(body, config) {
       subject: body.subject,
       html: body.text
     }, (error, response) => {
-      console.log("ERR: ",error)
       if(error) return reject(error);
-      console.log("RESPONSE: ", response)
       transporter.close();
       resolve('true')
   });

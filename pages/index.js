@@ -77,7 +77,6 @@ class LoginPage extends React.Component {
   
 	render() {
     const { formDetails, error, loading, activated } = this.state;
-    console.log(activated)
 		return (
       <Meta>
         <Head>
