@@ -56,14 +56,14 @@ router.route('/signup')
                                 };
                                 sendEmail(emailParams, settings[0].metadata)                                
                             })
-                            .catch(e => res.send(e));
+                            .catch(e => res.status(500).send({ message: "Fail! What the hell are you trying to do?"}));
                         const token = generateSignedInResponse(addedUser.object);
                         return res.json({ success: true });
                     })
-                    .catch(e => res.send(e));
+                    .catch(e => res.status(500).send({ message: "Fail! What the hell are you trying to do?"}));
             }
         })
-        .catch(e => res.send(e));
+        .catch(e => res.status(500).send({ message: "Fail! What the hell are you trying to do?"}));
 
   });
 
@@ -124,10 +124,10 @@ router.route('/activate-account')
                 };
                 cosmic("EDIT", params)
                     .then(updatedUser => res.json({ success: true }))
-                    .catch(e => res.send(e));
+                    .catch(e => res.status(500).send({ message: "Fail! What the hell are you trying to do?"}));
             }
         })
-        .catch(e => res.send(e));
+        .catch(e => res.status(500).send({ message: "Fail! What the hell are you trying to do?"}));
     });
 router.route('/signin')
     .post(function(req, res) {
@@ -156,7 +156,7 @@ router.route('/signin')
                 } else return res.status(401).send({ message: "Please activate your account!" });
             } else return res.status(401).send({ message: "Credentials are wrong!" });
         })
-        .then(e => res.send(e));
+        .catch(e => res.status(500).send({ message: "Fail! What the hell are you trying to do?"}));
 
 });
 
@@ -227,15 +227,15 @@ router.route('/forgot-password')
                                     };
                                     sendEmail(emailParams, settings[0].metadata)
                                     .then(emailRes => res.json({ succes: true }))
-                                    .catch(e => res.send(e));
+                                    .catch(e => res.status(500).send({ message: "Fail! What the hell are you trying to do?"}));
                                    
                                 })
-                                .catch(e => res.send(e));
+                                .catch(e => res.status(500).send({ message: "Fail! What the hell are you trying to do?"}));
                         })
                         .catch(e => res.status(500).send(e));
                 } else return res.status(401).send({ message: "This user is not registered!" });
             })
-            .catch(e => res.send(e));
+            .catch(e => res.status(500).send({ message: "Fail! What the hell are you trying to do?"}));
     });
 
 router.route('/profile')
@@ -243,7 +243,7 @@ router.route('/profile')
         const { slug } = req.user;
         cosmic("GET", { slug })
             .then(user => res.json(user))
-            .catch(e => res.send(e));
+            .catch(e => res.status(500).send({ message: "Fail! What the hell are you trying to do?"}));
     })
     .put(expressJwt({ secret: config.jwtSecret }), function(req, res) {
         const { slug } = req.user;
@@ -259,7 +259,7 @@ router.route('/profile')
                     token: generateSignedInResponse(user.object),
                     user: user.object,
                 }))
-            .catch(e => res.send(e));
+            .catch(e => res.status(500).send({ message: "Fail! What the hell are you trying to do?"}));
     });
 
 router.route('/profile/password')
@@ -310,7 +310,7 @@ router.route('/profile/password')
                         };
                         cosmic("EDIT", params)
                             .then(updatedUser => res.json({ user: updatedUser.object }))
-                            .catch(e => res.send(e));
+                            .catch(e => res.status(500).send({ message: "Fail! What the hell are you trying to do?"}));
                     } else {
                         res.status(401).send({ message: "Your passwords doesn't match" });
                     }
@@ -318,7 +318,7 @@ router.route('/profile/password')
                     res.status(401).send({ message: "Old password is not correct" });
                 }
             })
-            .catch(e => res.send(e));
+            .catch(e => res.status(500).send({ message: "Fail! What the hell are you trying to do?"}));
         
     });
 
@@ -385,7 +385,7 @@ router.route('/profile/password')
                     } else return res.status(404).send({ message: "OTP is incorrect!" });
                 } else return res.status(404).send({ message: "This user is not registered!" });
             })
-            .catch(e => res.send(e));
+            .catch(e => res.status(500).send({ message: "Fail! What the hell are you trying to do?"}));
     });
 
   function generateSignedInResponse(user) {
