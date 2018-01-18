@@ -33,7 +33,7 @@ class LoginPage extends React.Component {
     const response = await request(requestURL);
     if(!response.err) {
         this.setState({ loading: false });
-        Router.push('/');
+        Router.push('/?status=activated');
     } else {
         this.setState({ error: response.err.reason, loading: false });
     }

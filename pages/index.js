@@ -14,12 +14,16 @@ import Head from 'next/head';
 import Meta from 'components/widgets/Meta';
 
 class LoginPage extends React.Component {
+  static async getInitialProps({ req, query }) {
+    return { activated: query.status === 'activated' };
+  }
 
   constructor(props) {
     super(props);
     this.state = {
       error: false,
       loading: false,
+      activated: this.props.activated,
       formDetails: {
         email: {
           status: true,
@@ -72,7 +76,8 @@ class LoginPage extends React.Component {
   }
   
 	render() {
-    const { formDetails, error, loading } = this.state;
+    const { formDetails, error, loading, activated } = this.state;
+    console.log(activated)
 		return (
       <Meta>
         <Head>
@@ -82,6 +87,7 @@ class LoginPage extends React.Component {
           formDetails={formDetails}
           error={error}
           loading={loading}
+          activated={activated}
 
           validateForm={this.validateForm}
           updateFormDetails={this.updateFormDetails}

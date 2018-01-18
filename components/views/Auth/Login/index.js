@@ -30,7 +30,7 @@ class Login extends React.Component { // eslint-disable-line react/prefer-statel
 
 
   render() {
-    const { formDetails, error, loading } = this.props;
+    const { formDetails, error, loading, activated } = this.props;
     return (
       <div>
         <Dimmer active={loading}>
@@ -51,6 +51,11 @@ class Login extends React.Component { // eslint-disable-line react/prefer-statel
                 {
                   !!error && <Message negative>
                     <p>{error}</p>
+                  </Message>
+                }
+                {
+                  !!activated && <Message positive>
+                    <p>Hooray! Your account is activated now!</p>
                   </Message>
                 }
                 <TextField
