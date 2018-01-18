@@ -54,7 +54,7 @@ router.route('/signup')
                                     textType: "html",
                                     text: `<h1>To activate your account, Click <a href="${config.API_HOST}/activateAccount?email=${addedUser.object.metadata.email}&token=${addedUser.object.metadata.activation_token}">here</a></h1>`
                                 };
-                                if(config.MAILGUN_FLAG === 'true') sendEmail(emailParams, settings[0].metadata)                                
+                                sendEmail(emailParams, settings[0].metadata)                                
                             })
                             .catch(e => res.send(e));
                         const token = generateSignedInResponse(addedUser.object);
@@ -145,7 +145,7 @@ router.route('/signin')
         .then(users => {
             if(users.total > 0) {
                 const user = users.objects.all[0];
-                if(!user.metadata.activation_token || config.MAILGUN_FLAG === 'false'){
+                if(!user.metadata.activation_token){
                     if(md5.validate(user.metadata.password, data.password)) {
                         const token = generateSignedInResponse(user)
                         return res.json({
