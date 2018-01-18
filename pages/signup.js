@@ -18,6 +18,7 @@ class SignUpPage extends React.Component {
     super(props);
     this.state = {
       error: false,
+      success: false,
       loading: false,
       formDetails: {
         name: {
@@ -57,15 +58,15 @@ class SignUpPage extends React.Component {
 
 
   onSignup = async (data) => {
-    this.setState({ error: false, loading: true });
+    this.setState({ success: false, error: false, loading: true });
     const requestBody = { data };
     const requestURL = 'api/signup';
     const options = createRequestOptions('POST', requestBody);
     const response = await request(requestURL, options);
     if(!response.err) {
-      this.setState({  loading: true });
+      this.setState({  loading: false, success: true });
       const user = response.data;
-      Router.push("/");
+      // Router.push("/");
     } else {
       this.setState({ error: response.err.reason, loading: false });
     }
@@ -77,7 +78,7 @@ class SignUpPage extends React.Component {
   }
   
 	render() {
-    const { formDetails, error, loading } = this.state;
+    const { formDetails, error, loading, success } = this.state;
 		return (
       <Meta>
         <Head>
@@ -86,6 +87,7 @@ class SignUpPage extends React.Component {
         <SignUp 
           formDetails={formDetails}
           error={error}
+          success={success}
           loading={loading}
 
           validateForm={this.validateForm}

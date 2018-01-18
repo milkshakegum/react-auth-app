@@ -30,7 +30,7 @@ class SignUp extends React.Component { // eslint-disable-line react/prefer-state
 
 
   render() {
-    const { formDetails, error, loading } = this.props;
+    const { formDetails, error, loading, success } = this.props;
     return (
       <div>
         <Dimmer active={loading}>
@@ -51,6 +51,12 @@ class SignUp extends React.Component { // eslint-disable-line react/prefer-state
                 {
                   !!error && <Message negative>
                     <p>{error}</p>
+                  </Message>
+                }
+
+                {
+                  success && <Message positive>
+                    <p>Account has been successfully Created! <Link href="/"><a>Login</a></Link></p>
                   </Message>
                 }
                 
